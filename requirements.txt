@@ -1,8 +1,7 @@
-#pip
+pip
 pandas
 plotly
 yfinance
 streamlit
 ta
 datetime
-ssl
