@@ -6,9 +6,9 @@ import yfinance             as yf
 import streamlit            as st
 from   ta.volatility    import BollingerBands
 from   datetime         import date, datetime, timedelta
-import ssl
-ssl._create_default_https_context = ssl._create_unverified_context # Disable SSL Certificate Verification
-url = 'https://github.com/'
+#import ssl
+#ssl._create_default_https_context = ssl._create_unverified_context # Disable SSL Certificate Verification
+#url = 'https://github.com/'
 
 st.set_page_config(page_title='Stocks', page_icon='📊', initial_sidebar_state='expanded')
 
