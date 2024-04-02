@@ -29,21 +29,14 @@ End            = (date.today()-timedelta(days= 1))
 start          = st.sidebar.date_input(label='Start Date:', value=Start, format='YYYY.MM.DD')
 end            = st.sidebar.date_input(label='End   Date:', value=End  , format='YYYY.MM.DD')
 
-def LoadData1():
-    ticker1    = yf.download(stock1, start=start, end=end)
-    return       ticker1
-def LoadData2():
-    ticker2    = yf.download(stock2, start=start, end=end)
-    return       ticker2
-
-df1            = LoadData1()
+df1            = yf.download(stock1, start=start, end=end)
 df1.reset_index(inplace=True)
 df1['Date']    = pd.to_datetime(df1['Date'], format='%Y-%m-%d').dt.date
 FilteredDF1    = df1.loc[(df1['Date'] >= start)&(df1['Date']  <= end)]
 Stock1         = (FilteredDF1['High']  + FilteredDF1['Low'])/2
 SideBarInfo1.info('{} entries for {}'.format(Stock1.shape[0], stock1))
 
-df2            = LoadData2()
+df2            = yf.download(stock2, start=start, end=end)
 df2.reset_index(inplace=True)
 df2['Date']    = pd.to_datetime(df2['Date'], format='%Y-%m-%d').dt.date
 FilteredDF2    = df2.loc[(df2['Date'] >= start)&(df2['Date']  <= end)]
