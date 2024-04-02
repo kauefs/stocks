@@ -24,7 +24,7 @@ SideBarInfo1   = st.sidebar.empty()
 stock2         = st.sidebar.text_input('Valid Stock Ticker 2:', 'PRIO3.SA')
 SideBarInfo2   = st.sidebar.empty()
 
-Start          = (date.today()-timedelta(days=365))
+Start          = (date.today()-timedelta(days=90))
 End            =  date.today()
 start          = st.sidebar.date_input(label='Start Date:', value=Start, format='YYYY.MM.DD')
 end            = st.sidebar.date_input(label='End   Date:', value=End  , format='YYYY.MM.DD')
