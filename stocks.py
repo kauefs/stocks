@@ -10,7 +10,7 @@ from   datetime         import date, datetime, timedelta
 #ssl._create_default_https_context = ssl._create_unverified_context # Disable SSL Certificate Verification
 #url = 'https://github.com/'
 
-st.set_page_config(page_title='Stocks', page_icon='📊', initial_sidebar_state='expanded')
+st.set_page_config(page_title='Stocks', page_icon='📊', layout='wide', initial_sidebar_state='expanded')
 
 # SIDE:
 st.sidebar.header(   'Stocks            ')
@@ -25,7 +25,7 @@ stock2         = st.sidebar.text_input('Valid Stock Ticker 2:', 'PRIO3.SA')
 SideBarInfo2   = st.sidebar.empty()
 
 Start          = (date.today()-timedelta(days=90))
-End            =  date.today()
+End            = (date.today()-timedelta(days=1))
 start          = st.sidebar.date_input(label='Start Date:', value=Start, format='YYYY.MM.DD')
 end            = st.sidebar.date_input(label='End   Date:', value=End  , format='YYYY.MM.DD')
 
