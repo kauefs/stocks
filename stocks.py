@@ -66,8 +66,8 @@ st.subheader('Comparisson Charts')
 st.markdown(f'''➡️ **{stock1}**:''')
 
 bb = BollingerBands(close=df1['Close'], window=20, window_dev=2)
-df1['BBH']  = bb.bollinger_hband()
-df1['BBL']  = bb.bollinger_lband()
+df1['BBH' ] = bb.bollinger_hband()
+df1['BBL' ] = bb.bollinger_lband()
 df1['MA20'] = df1['Close'].rolling(window=20).mean()
 
 fig = make_subplots(rows=  2, cols  =  1, shared_xaxes=True,
@@ -109,8 +109,8 @@ st.divider()
 st.markdown(f'''➡️ **{stock2}**:''')
 
 bb = BollingerBands(close=df2['Close'], window=20, window_dev=2)
-df2['BBH']  = bb.bollinger_hband()
-df2['BBL']  = bb.bollinger_lband()
+df2['BBH' ] = bb.bollinger_hband()
+df2['BBL' ] = bb.bollinger_lband()
 df2['MA20'] = df2['Close'].rolling(window=20).mean()
 
 fig = make_subplots(rows=  2, cols  = 1, shared_xaxes=True,
