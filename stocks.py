@@ -1,11 +1,11 @@
 # Libraries:
-import pandas               as pd
-import plotly.graph_objects as go
-from   plotly.subplots  import make_subplots
-import yfinance             as yf
-import streamlit            as st
-from   ta.volatility    import BollingerBands
-from   datetime         import date, datetime, timedelta
+import pandas                as pd
+import yfinance              as yf
+import streamlit             as st
+import plotly.graph_objects  as go
+from   plotly.subplots   import make_subplots
+from       ta.volatility import BollingerBands
+from          datetime   import date, timedelta
 #import ssl
 #ssl._create_default_https_context = ssl._create_unverified_context # Disable SSL Certificate Verification
 #url = 'https://github.com/'
@@ -65,15 +65,12 @@ st.subheader('Comparisson Charts')
 
 st.markdown(f'''➡️ **{stock1}**:''')
 
+bb = BollingerBands(close=df1['Close'], window=20, window_dev=2)
+df1['BBH']  = bb.bollinger_hband()
+df1['BBL']  = bb.bollinger_lband()
 df1['MA20'] = df1['Close'].rolling(window=20).mean()
 
-bb = BollingerBands(close=df1['Close'], window=20, window_dev=2)
-df1['BBH'] = bb.bollinger_hband()
-df1['BBL'] = bb.bollinger_lband()
-
-
-
-fig = make_subplots(rows=  2, cols  = 1, shared_xaxes=True,
+fig = make_subplots(rows=  2, cols  =  1, shared_xaxes=True,
                     vertical_spacing=.05,
                     subplot_titles  =('', 'Volume'),
                     row_width       =[.2, .7])
@@ -82,26 +79,26 @@ fig.add_trace(go.Candlestick(x      =df1['Date' ],
                              high   =df1['High' ],
                              low    =df1['Low'  ],
                              close  =df1['Close'],
-                             name   =    'Candlestick'),
+                             name   =    'CandleStick'),
                              row    =1, col=1)
 fig.add_trace(go.Scatter(x          =df1['Date' ],
                          y          =df1['BBH'  ],
-                         mode       ='lines',
-                         name       ='BBH - Bollinger Higher Band'),
+                         mode       =    'lines',
+                         name       =    'BBH - Bollinger Higher Band'),
                          row        =1, col=1)
 fig.add_trace(go.Scatter(x          =df1['Date' ],
                          y          =df1['MA20' ],
-                         mode       ='lines',
-                         name       ='MA20 - Média Móvel 20 Dias'),
+                         mode       =    'lines',
+                         name       =    'MA20 - Média Móvel 20 Dias'),
                          row        =1, col=1)
 fig.add_trace(go.Scatter(x          =df1['Date' ],
                          y          =df1['BBL'  ],
-                         mode       ='lines',
-                         name       ='BBL - Bollinger Lower Band'),
+                         mode       =    'lines',
+                         name       =    'BBL - Bollinger Lower Band'),
                          row        =1, col=1)
 fig.add_trace(go.Bar(x              =df1['Date'  ],
                      y              =df1['Volume'],
-                     name           ='Volume'),
+                     name           =    'Volume'),
                      row            =2, col=1)
 fig.update_layout(yaxis_title       ='Price',
                   xaxis_rangeslider_visible = False,
@@ -111,11 +108,10 @@ st.divider()
 
 st.markdown(f'''➡️ **{stock2}**:''')
 
-df2['MA20'] = df2['Close'].rolling(window=20).mean()
-
 bb = BollingerBands(close=df2['Close'], window=20, window_dev=2)
-df2['BBH'] = bb.bollinger_hband()
-df2['BBL'] = bb.bollinger_lband()
+df2['BBH']  = bb.bollinger_hband()
+df2['BBL']  = bb.bollinger_lband()
+df2['MA20'] = df2['Close'].rolling(window=20).mean()
 
 fig = make_subplots(rows=  2, cols  = 1, shared_xaxes=True,
                     vertical_spacing=.05,
