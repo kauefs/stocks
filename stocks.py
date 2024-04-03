@@ -72,7 +72,7 @@ df1['MA20'] = df1['Close'].rolling(window=20).mean()
 
 fig = make_subplots(rows=  2, cols  =  1, shared_xaxes=True,
                     vertical_spacing=.05,
-                    subplot_titles  =('', 'Volume'),
+                    subplot_titles  =('','Volume'),
                     row_width       =[.2, .7])
 fig.add_trace(go.Candlestick(x      =df1['Date' ],
                              open   =df1['Open' ],
@@ -100,7 +100,7 @@ fig.add_trace(go.Bar(x              =df1['Date'  ],
                      y              =df1['Volume'],
                      name           =    'Volume'),
                      row            =2, col=1)
-fig.update_layout(yaxis_title       ='Price',
+fig.update_layout(yaxis_title       =    'Price',
                   xaxis_rangeslider_visible = False,
                   width             =1000,   height=500)
 st.plotly_chart(fig, theme='streamlit')
@@ -115,7 +115,7 @@ df2['MA20'] = df2['Close'].rolling(window=20).mean()
 
 fig = make_subplots(rows=  2, cols  = 1, shared_xaxes=True,
                     vertical_spacing=.05,
-                    subplot_titles  =('', 'Volume'),
+                    subplot_titles  =('','Volume'),
                     row_width       =[.2, .7])
 fig.add_trace(go.Candlestick(x      =df2['Date' ],
                              open   =df2['Open' ],
@@ -126,24 +126,24 @@ fig.add_trace(go.Candlestick(x      =df2['Date' ],
                              row    =1, col=1)
 fig.add_trace(go.Scatter(x          =df2['Date' ],
                          y          =df2['BBH'  ],
-                         mode       ='lines',
-                         name       ='BBH - Bollinger Higher Band'),
+                         mode       =    'lines',
+                         name       =    'BBH - Bollinger Higher Band'),
                          row        =1, col=1)
 fig.add_trace(go.Scatter(x          =df2['Date' ],
                          y          =df2['MA20' ],
-                         mode       ='lines',
-                         name       ='MA20 - Média Móvel 20 Dias'),
+                         mode       =    'lines',
+                         name       =    'MA20 - Média Móvel 20 Dias'),
                          row        =1, col=1)
 fig.add_trace(go.Scatter(x          =df2['Date' ],
                          y          =df2['BBL'  ],
-                         mode       ='lines',
-                         name       ='BBL - Bollinger Lower Band'),
+                         mode       =    'lines',
+                         name       =    'BBL - Bollinger Lower Band'),
                          row        =1, col=1)
 fig.add_trace(go.Bar(x              =df2['Date'  ],
                      y              =df2['Volume'],
-                     name           ='Volume'),
+                     name           =    'Volume'),
                      row            =2, col=1)
-fig.update_layout(yaxis_title       ='Price',
+fig.update_layout(yaxis_title       =    'Price',
                   xaxis_rangeslider_visible = False,
                   width             =1000,   height=500)
 st.plotly_chart(fig, theme='streamlit')
