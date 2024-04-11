@@ -7,3 +7,5 @@
 [![License]( https://img.shields.io/github/license/kauefs/stocks?style=flat&logo=apache&logoColor=CB2138&label=License&labelColor=6D6E71&color=000000)](https://www.apache.org/licenses/LICENSE-2.0)
 
 <p align=center>ƊⱭȾɅViƧi🧿Ƞ</p>
+
+[Stocks](https://sto-cks.streamlit.app/)
