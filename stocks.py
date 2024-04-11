@@ -6,9 +6,6 @@ import plotly.graph_objects  as go
 from   plotly.subplots   import make_subplots
 from       ta.volatility import BollingerBands
 from          datetime   import date, timedelta
-#import ssl
-#ssl._create_default_https_context = ssl._create_unverified_context # Disable SSL Certificate Verification
-#url = 'https://github.com/'
 
 st.set_page_config(page_title='Stocks', page_icon='📊', layout='wide', initial_sidebar_state='expanded')
 
@@ -55,10 +52,10 @@ with st.sidebar.container():
 # MAIN:
 st.title(    'STOCKS')
 st.markdown( '''
-[![GitHub](https://img.shields.io/badge/GitHub-000000?logo=github&logoColor=white)](https://github.com/kauefs/)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?logo=linkedin&logoColor=white)](https://www.linkedin.com/in/kauefs/)
-[![Python](https://img.shields.io/badge/Python-3-blue.svg)](https://www.python.org/)
-[![License](https://img.shields.io/badge/License-Apache_2.0-black.svg)](https://www.apache.org/licenses/LICENSE-2.0)
+[![GitHub](  https://img.shields.io/badge/-000000?logo=github&logoColor=FFFFFF)](                  https://github.com/kauefs/)
+[![LinkedIn](https://img.shields.io/badge/-0077B5?logo=linkedin&logoColor=FFFFFF)](                https://www.linkedin.com/in/kauefs/)
+[![Python](  https://img.shields.io/badge/-3-4584B6?logo=python&logoColor=FFDE57)](                https://www.python.org/)
+[![License]( https://img.shields.io/badge/License-Apache_2.0-D22128?logo=apache&logoColor=CB2138)](https://www.apache.org/licenses/LICENSE-2.0)
              ''')
 with st.container():
      cols = st.columns(3)
