@@ -60,7 +60,6 @@ st.divider(                        )
 st.title(    'STOCKS'              )
 st.divider(                        )
 st.subheader('Comparisson Charts'  )
-st.sidebar.markdown('''         ''')
 st.markdown(f'''➡️ **{stock1}**:''')
 
 bb = BollingerBands(close=df1['Close'], window=20, window_dev=2)
