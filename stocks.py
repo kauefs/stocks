@@ -15,7 +15,7 @@ st.sidebar.markdown('''
 [![Medium](  https://img.shields.io/badge/-000000?logo=medium&logoColor=FFFFFF)](                                 https://medium.com/@kauefs)
 [![LinkedIn](https://img.shields.io/badge/-0077B5?logo=linkedin&logoColor=FFFFFF)](                               https://www.linkedin.com/in/kauefs/)
 [![Python](  https://img.shields.io/badge/-3-4584B6?logo=python&logoColor=FFDE57&labelColor=4584B6&color=646464)](https://www.python.org/)
-[![License]( https://img.shields.io/github/license/kauefs/stocks?style=flat&logo=apache&logoColor=CB2138&label=License&labelColor=6D6E71&color=000000)](https://www.apache.org/licenses/LICENSE-2.0)
+[![License]( https://img.shields.io/badge/License-Apache_2.0-D22128?logo=apache&logoColor=CB2138)](https://www.apache.org/licenses/LICENSE-2.0)
             ''')
 st.sidebar.text( '13 October 2023'       )
 st.sidebar.divider(                      )
@@ -50,16 +50,17 @@ FilteredDF2    = df2.loc[(df2['Date'] >= start)&(df2['Date']  <= end)]
 Stock2         = (FilteredDF2['High']  + FilteredDF2['Low'])/2
 SideBarInfo2.info('{} entries for {}'.format(Stock2.shape[0], stock2))
 
-st.sidebar.divider()
+st.sidebar.divider(                                                           )
 st.sidebar.markdown('''Source: [Yahoo! Finance](https://finance.yahoo.com/)''')
+st.sidebar.divider(                                                           )
 st.sidebar.markdown('''©2023™  [ƊⱭȾɅViƧi🧿Ƞ](https://datavision.one/)     ''')
 
 # MAIN:
-st.divider()
-st.title(    'STOCKS')
-st.divider()
-st.subheader('Comparisson Charts')
-
+st.divider(                        )
+st.title(    'STOCKS'              )
+st.divider(                        )
+st.subheader('Comparisson Charts'  )
+st.sidebar.markdown('''         ''')
 st.markdown(f'''➡️ **{stock1}**:''')
 
 bb = BollingerBands(close=df1['Close'], window=20, window_dev=2)
