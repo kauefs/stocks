@@ -10,59 +10,51 @@ from          datetime   import date, timedelta
 st.set_page_config(page_title='Stocks', page_icon='📊', layout='wide', initial_sidebar_state='expanded')
 
 # SIDE:
-st.sidebar.header(   'Stocks            ')
-st.sidebar.subheader('Data Analysis     ')
-st.sidebar.write(    'Comparisson Charts')
-st.sidebar.divider(                      )
-
-stock1         = st.sidebar.text_input('Valid Stock Ticker 1:', 'BBAS3.SA')
-SideBarInfo1   = st.sidebar.empty()
-
-stock2         = st.sidebar.text_input('Valid Stock Ticker 2:', 'BBSE3.SA')
-SideBarInfo2   = st.sidebar.empty()
-
-Start          = (date.today()-timedelta(days=90))
-End            = (date.today()-timedelta(days= 1))
-start          = st.sidebar.date_input(label='Start Date:', value=Start, format='YYYY.MM.DD')
-end            = st.sidebar.date_input(label='End   Date:', value=End  , format='YYYY.MM.DD')
-
-df1            = yf.download(stock1, start=start, end=end)
-df1.reset_index(inplace=True)
-df1['Date']    = pd.to_datetime(df1['Date'], format='%Y-%m-%d').dt.date
-FilteredDF1    = df1.loc[(df1['Date'] >= start)&(df1['Date']  <= end)]
-Stock1         = (FilteredDF1['High']  + FilteredDF1['Low'])/2
-SideBarInfo1.info('{} entries for {}'.format(Stock1.shape[0], stock1))
-
-df2            = yf.download(stock2, start=start, end=end)
-df2.reset_index(inplace=True)
-df2['Date']    = pd.to_datetime(df2['Date'], format='%Y-%m-%d').dt.date
-FilteredDF2    = df2.loc[(df2['Date'] >= start)&(df2['Date']  <= end)]
-Stock2         = (FilteredDF2['High']  + FilteredDF2['Low'])/2
-SideBarInfo2.info('{} entries for {}'.format(Stock2.shape[0], stock2))
-
-st.sidebar.divider()
-st.sidebar.markdown('''Source: [Yahoo! Finance](https://finance.yahoo.com/)''')
-st.sidebar.divider()
-with st.sidebar.container():
-     cols = st.columns(3)
-     with cols[0]:st.empty()
-     with cols[1]:st.markdown('''©2024™''')
-     with cols[2]:st.empty()
-
-# MAIN:
-st.title(    'STOCKS')
-st.markdown( '''
+st.sidebar.markdown('''
 [![GitHub](  https://img.shields.io/badge/-000000?logo=github&logoColor=FFFFFF)](                                 https://github.com/kauefs/)
 [![Medium](  https://img.shields.io/badge/-000000?logo=medium&logoColor=FFFFFF)](                                 https://medium.com/@kauefs)
 [![LinkedIn](https://img.shields.io/badge/-0077B5?logo=linkedin&logoColor=FFFFFF)](                               https://www.linkedin.com/in/kauefs/)
 [![Python](  https://img.shields.io/badge/-3-4584B6?logo=python&logoColor=FFDE57&labelColor=4584B6&color=646464)](https://www.python.org/)
 [![License]( https://img.shields.io/github/license/kauefs/stocks?style=flat&logo=apache&logoColor=CB2138&label=License&labelColor=6D6E71&color=000000)](https://www.apache.org/licenses/LICENSE-2.0)
-             ''')
-with st.container():
-     cols = st.columns(3)
-     with cols[0]:st.empty()
-     with cols[1]:st.write('1 April 2024')
-     with cols[2]:st.empty()
+            ''')
+st.sidebar.text( '13 October 2023'       )
+st.sidebar.divider(                      )
+
+st.sidebar.header(   'Stocks'            )
+st.sidebar.subheader('Data Analysis'     )
+st.sidebar.write(    'Comparisson Charts')
+st.sidebar.divider(                      )
+
+stock1         = st.sidebar.text_input('Yahoo! Stock Ticker 1:', 'BBAS3.SA')
+df1            = yf.download(stock1, start=start, end=end)
+df1.reset_index(inplace=True)
+df1['Date']    = pd.to_datetime(df1['Date'], format='%Y-%m-%d').dt.date
+FilteredDF1    = df1.loc[(df1['Date'] >= start)&(df1['Date']  <= end)]
+Stock1         = (FilteredDF1['High']  + FilteredDF1['Low'])/2
+st.sidebar.info('{} entries for {}'.format(Stock1.shape[0], stock1))
+
+stock2         = st.sidebar.text_input('Yahoo! Stock Ticker 2:', 'BBSE3.SA')
+df2            = yf.download(stock2, start=start, end=end)
+df2.reset_index(inplace=True)
+df2['Date']    = pd.to_datetime(df2['Date'], format='%Y-%m-%d').dt.date
+FilteredDF2    = df2.loc[(df2['Date'] >= start)&(df2['Date']  <= end)]
+Stock2         = (FilteredDF2['High']  + FilteredDF2['Low'])/2
+st.sidebar.info('{} entries for {}'.format(Stock2.shape[0], stock2))
+
+Start          = (date.today()-timedelta(days=90))
+End            = (date.today()-timedelta(days= 1))
+start          = st.sidebar.date_input(label='From:', value=Start, format='YYYY.MM.DD')
+end            = st.sidebar.date_input(label='To:'  , value=End  , format='YYYY.MM.DD')
+
+
+st.sidebar.divider()
+st.sidebar.markdown('''Source: [Yahoo! Finance](https://finance.yahoo.com/)''')
+st.sidebar.markdown('''©2023™  [ƊⱭȾɅViƧi🧿Ƞ](https://datavision.one/)     ''')
+
+# MAIN:
+st.divider()
+st.title(    'STOCKS')
+st.divider()
 st.subheader('Comparisson Charts')
 
 st.markdown(f'''➡️ **{stock1}**:''')
@@ -106,7 +98,7 @@ fig.update_layout(yaxis_title       =    'Price',
                   xaxis_rangeslider_visible = False,
                   width             =1000,   height=500)
 st.plotly_chart(fig, theme='streamlit')
-st.divider()
+st.divider(                           )
 
 st.markdown(f'''➡️ **{stock2}**:''')
 
@@ -149,3 +141,4 @@ fig.update_layout(yaxis_title       =    'Price',
                   xaxis_rangeslider_visible = False,
                   width             =1000,   height=500)
 st.plotly_chart(fig, theme='streamlit')
+st.divider(                           )
