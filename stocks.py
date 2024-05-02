@@ -26,26 +26,29 @@ st.sidebar.write(    'Comparisson Charts')
 st.sidebar.divider(                      )
 
 stock1         = st.sidebar.text_input('Yahoo! Stock Ticker 1:', 'BBAS3.SA')
-df1            = yf.download(stock1, start=start, end=end)
-df1.reset_index(inplace=True)
-df1['Date']    = pd.to_datetime(df1['Date'], format='%Y-%m-%d').dt.date
-FilteredDF1    = df1.loc[(df1['Date'] >= start)&(df1['Date']  <= end)]
-Stock1         = (FilteredDF1['High']  + FilteredDF1['Low'])/2
-st.sidebar.info('{} entries for {}'.format(Stock1.shape[0], stock1))
+SideBarInfo1   = st.sidebar.empty(                                         )
 
 stock2         = st.sidebar.text_input('Yahoo! Stock Ticker 2:', 'BBSE3.SA')
-df2            = yf.download(stock2, start=start, end=end)
-df2.reset_index(inplace=True)
-df2['Date']    = pd.to_datetime(df2['Date'], format='%Y-%m-%d').dt.date
-FilteredDF2    = df2.loc[(df2['Date'] >= start)&(df2['Date']  <= end)]
-Stock2         = (FilteredDF2['High']  + FilteredDF2['Low'])/2
-st.sidebar.info('{} entries for {}'.format(Stock2.shape[0], stock2))
+SideBarInfo2   = st.sidebar.empty(                                         )
 
 Start          = (date.today()-timedelta(days=90))
 End            = (date.today()-timedelta(days= 1))
 start          = st.sidebar.date_input(label='From:', value=Start, format='YYYY.MM.DD')
 end            = st.sidebar.date_input(label='To:'  , value=End  , format='YYYY.MM.DD')
 
+df1            = yf.download(stock1, start=start, end=end)
+df1.reset_index(inplace=True)
+df1['Date']    = pd.to_datetime(df1['Date'], format='%Y-%m-%d').dt.date
+FilteredDF1    = df1.loc[(df1['Date'] >= start)&(df1['Date']  <= end)]
+Stock1         = (FilteredDF1['High']  + FilteredDF1['Low'])/2
+SideBarInfo1.info('{} entries for {}'.format(Stock1.shape[0], stock1))
+
+df2            = yf.download(stock2, start=start, end=end)
+df2.reset_index(inplace=True)
+df2['Date']    = pd.to_datetime(df2['Date'], format='%Y-%m-%d').dt.date
+FilteredDF2    = df2.loc[(df2['Date'] >= start)&(df2['Date']  <= end)]
+Stock2         = (FilteredDF2['High']  + FilteredDF2['Low'])/2
+SideBarInfo2.info('{} entries for {}'.format(Stock2.shape[0], stock2))
 
 st.sidebar.divider()
 st.sidebar.markdown('''Source: [Yahoo! Finance](https://finance.yahoo.com/)''')
