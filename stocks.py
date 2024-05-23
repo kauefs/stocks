@@ -45,7 +45,6 @@ SideBarInfo2.info('{} entries for {}'.format(Stock2.shape[0], stock2))
 
 st.sidebar.divider(                                                           )
 st.sidebar.markdown('''Source: [Yahoo! Finance](https://finance.yahoo.com/)''')
-st.sidebar.divider(                                                           )
 st.sidebar.markdown('''
 ![2024.04.01](  https://img.shields.io/badge/2024.04.01-000000)
 
