@@ -1,7 +1,8 @@
+sys
 pip
 pandas
 plotly
 yfinance
 streamlit
-ta
 datetime
+ta
