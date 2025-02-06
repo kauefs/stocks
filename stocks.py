@@ -10,13 +10,13 @@ from          datetime   import date, timedelta
 st.set_page_config(page_title='Stocks', page_icon='📊', layout='wide', initial_sidebar_state='expanded')
 
 # SIDE:
-st.sidebar.title(    'ƊⱭȾɅViƧi🧿Ƞ&trade;')
-st.sidebar.divider(                       )
+st.sidebar.title    ('ƊⱭȾɅViƧi🧿Ƞ&trade;')
+st.sidebar.divider  (                     )
 
-st.sidebar.header(   'Stocks'             )
+st.sidebar.header   ('Stocks'             )
 st.sidebar.subheader('Data Analysis'      )
-st.sidebar.write(    'Comparisson Charts' )
-st.sidebar.divider(                       )
+st.sidebar.write    ('Comparisson Charts' )
+st.sidebar.divider  (                     )
 
 stock1         = st.sidebar.text_input('Yahoo! Stock Ticker 1:','BBAS3.SA')
 SideBarInfo1   = st.sidebar.empty(                                        )
@@ -41,29 +41,29 @@ df2.reset_index(inplace=True)
 df2['Date']    = pd.to_datetime(df2['Date'], format='%Y-%m-%d').dt.date
 FilteredDF2    = df2.loc[(df2['Date'] >= start)&(df2['Date']  <= end)]
 Stock2         = (FilteredDF2['High']  + FilteredDF2['Low'])/2
-SideBarInfo2.info('{} entries for {}'.format(Stock2.shape[0], stock2))
+SideBarInfo2.info  ('{} entries for {}'.format(Stock2.shape[0], stock2))
 
-st.sidebar.divider(                                                           )
+st.sidebar.divider (                                                          )
 st.sidebar.markdown('''Source: [Yahoo! Finance](https://finance.yahoo.com/)''')
 st.sidebar.markdown('''
 ![2024.04.01](  https://img.shields.io/badge/2024.04.01-000000)
 
+[![License](    https://img.shields.io/badge/Apache--2.0-D22128?&logo=apache&logoColor=CB2138&label=License&labelColor=6D6E71)](https://www.apache.org/licenses/LICENSE-2.0)
+
 [![GitHub](     https://img.shields.io/badge/-000000?logo=github&logoColor=FFFFFF)](https://github.com/kauefs/)
 [![Medium](     https://img.shields.io/badge/-000000?logo=medium&logoColor=FFFFFF)](https://medium.com/@kauefs)
-[![LinkedIn](   https://img.shields.io/badge/-0077B5?logo=linkedin&logoColor=FFFFFF)](https://www.linkedin.com/in/kauefs/)
+[![LinkedIn](   https://img.shields.io/badge/in-0077B5?logo=linkedin&logoColor=FFFFFF)](https://www.linkedin.com/in/kauefs/)
 [![Python](     https://img.shields.io/badge/3-646464?logo=python&logoColor=FFDE57&labelColor=4584B6)](https://www.python.org/)
-
-[![License](    https://img.shields.io/badge/Apache--2.0-D22128?&logo=apache&logoColor=CB2138&label=License&labelColor=6D6E71)](https://www.apache.org/licenses/LICENSE-2.0)
 
 [![ƊⱭȾɅViƧi🧿Ƞ](https://img.shields.io/badge/ƊⱭȾɅViƧi🧿Ƞ&trade;-0065FF?style=plastic&logoColor=0065FF&label=&copy;2024&labelColor=0065FF)](https://datavision.one/)
                     ''')
 
 # MAIN:
-st.divider(                        )
-st.title(    'STOCKS'              )
-st.divider(                        )
-st.subheader('Comparisson Charts'  )
-st.markdown(f'''➡️ **{stock1}**:''')
+st.divider  (                       )
+st.title    ('STOCKS'               )
+st.divider  (                       )
+st.subheader('Comparisson Charts'   )
+st.markdown (f'''➡️ **{stock1}**:''')
 
 close1=df1['Close']= df1['Close'].squeeze()
 bb = BollingerBands(close=close1, window=20, window_dev=2)
@@ -103,7 +103,7 @@ fig.add_trace(go.Bar(x              =df1['Date'  ],
                      row            =2, col=1)
 fig.update_layout(yaxis_title       =    'Price',
                   xaxis_rangeslider_visible= False,
-                  width             =1000,   height=500)
+                  width             =1000,  height=500)
 st.plotly_chart(fig, theme='streamlit')
 st.divider(                           )
 
