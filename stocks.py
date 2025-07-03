@@ -24,8 +24,8 @@ SideBarInfo1   = st.sidebar.empty(                                        )
 stock2         = st.sidebar.text_input('Yahoo! Stock Ticker 2:','BBSE3.SA')
 SideBarInfo2   = st.sidebar.empty(                                        )
 
-Start          = (date.today()-timedelta(days=89))
-End            = (date.today()-timedelta(days= 1))
+Start          = (date.today(  )-timedelta(days=145))
+End            = (date.today(  )-timedelta(days=  1))
 start          = st.sidebar.date_input(label='From:', value=Start, format='YYYY.MM.DD')
 end            = st.sidebar.date_input(label='To:'  , value=End  , format='YYYY.MM.DD')
 
@@ -46,14 +46,14 @@ SideBarInfo2.info  ('{} entries for {}'.format(Stock2.shape[0], stock2))
 st.sidebar.divider (                                                          )
 st.sidebar.markdown('''Data: [Yahoo! Finance](https://finance.yahoo.com/)''')
 st.sidebar.markdown('''
-![2024.04.01](  https://img.shields.io/badge/2024.04.01-000000)
+![2024.04.01   ](https://img.shields.io/badge/2024.04.01-000000)
 
-[![License](    https://img.shields.io/badge/Apache--2.0-D22128?&logo=apache&logoColor=CB2138&label=License&labelColor=6D6E71)](https://www.apache.org/licenses/LICENSE-2.0)
+[![License     ](https://img.shields.io/badge/Apache--2.0-D22128?&logo=apache&logoColor=CB2138&label=License&labelColor=6D6E71)](https://www.apache.org/licenses/LICENSE-2.0)
 
-[![GitHub](     https://img.shields.io/badge/-000000?logo=github&logoColor=FFFFFF)](https://github.com/kauefs/)
-[![Medium](     https://img.shields.io/badge/-000000?logo=medium&logoColor=FFFFFF)](https://medium.com/@kauefs)
-[![LinkedIn](   https://img.shields.io/badge/in-0077B5?logo=linkedin&logoColor=FFFFFF)](https://www.linkedin.com/in/kauefs/)
-[![Python](     https://img.shields.io/badge/3-646464?logo=python&logoColor=FFDE57&labelColor=4584B6)](https://www.python.org/)
+[![GitHub      ](https://img.shields.io/badge/-000000?logo=github&logoColor=FFFFFF)](https://github.com/kauefs/)
+[![Medium      ](https://img.shields.io/badge/-000000?logo=medium&logoColor=FFFFFF)](https://medium.com/@kauefs)
+[![LinkedIn    ](https://img.shields.io/badge/in-0077B5?logo=linkedin&logoColor=FFFFFF)](https://www.linkedin.com/in/kauefs/)
+[![Python      ](https://img.shields.io/badge/3-646464?logo=python&logoColor=FFDE57&labelColor=4584B6)](https://www.python.org/)
 
 [![ƊⱭȾɅViƧi🧿Ƞ](https://img.shields.io/badge/ƊⱭȾɅViƧi🧿Ƞ&trade;-0065FF?style=plastic&logoColor=0065FF&label=&copy;2025&labelColor=0065FF)](https://datavision.one/)
                     ''')
