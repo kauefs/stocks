@@ -101,7 +101,7 @@ fig.add_trace(go.Bar(x              =df1['Date'  ],
                      y              =df1['Volume'],
                      name           =    'Volume'),
                      row            =2, col=1)
-fig.update_layout(yaxis_title       =    'Price',
+fig.update_layout(#yaxis_title       =    'Price',
                   xaxis_rangeslider_visible= False,
                   width             =1000,  height=555)
 st.plotly_chart(fig, theme='streamlit')
