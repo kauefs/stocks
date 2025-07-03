@@ -24,7 +24,7 @@ SideBarInfo1   = st.sidebar.empty(                                        )
 stock2         = st.sidebar.text_input('Yahoo! Stock Ticker 2:','BBSE3.SA')
 SideBarInfo2   = st.sidebar.empty(                                        )
 
-Start          = (date.today(  )-timedelta(days=145))
+Start          = (date.today(  )-timedelta(days=150))
 End            = (date.today(  )-timedelta(days=  1))
 start          = st.sidebar.date_input(label='From:', value=Start, format='YYYY.MM.DD')
 end            = st.sidebar.date_input(label='To:'  , value=End  , format='YYYY.MM.DD')
