@@ -113,7 +113,7 @@ close2=df2['Close']= df2['Close'].squeeze()
 bb = BollingerBands(close=close2, window=15, window_dev=2)
 df2['BBH' ] = bb.bollinger_hband()
 df2['BBL' ] = bb.bollinger_lband()
-df2['MA20'] = df2['Close'].rolling(window=15).mean()
+df2['MA15'] = df2['Close'].rolling(window=15).mean()
 
 fig = make_subplots(rows=  2, cols  = 1, shared_xaxes=True,
                     vertical_spacing=.05,
