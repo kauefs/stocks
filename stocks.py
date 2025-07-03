@@ -74,7 +74,7 @@ df1['MA15'] = df1['Close'].rolling(window=15).mean()
 fig = make_subplots(rows=  2, cols  =  1, shared_xaxes=True,
                     vertical_spacing=.05,
                     subplot_titles  =('','Volume'),
-                    row_width       =[.3,.7])
+                    row_width       =[.25,.75])
 fig.add_trace(go.Candlestick(x      =df1['Date' ],
                              open   =df1['Open' ],
                              high   =df1['High' ],
@@ -118,7 +118,7 @@ df2['MA15'] = df2['Close'].rolling(window=15).mean()
 fig = make_subplots(rows=  2, cols  = 1, shared_xaxes=True,
                     vertical_spacing=.05,
                     subplot_titles  =('','Volume'),
-                    row_width       =[.3,.7])
+                    row_width       =[.25,.75])
 fig.add_trace(go.Candlestick(x      =df2['Date' ],
                              open   =df2['Open' ],
                              high   =df2['High' ],
