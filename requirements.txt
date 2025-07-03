@@ -3,6 +3,6 @@ certifi
 pandas
 plotly
 yfinance
-streamlit
+streamlit<1.42.0
 datetime
 ta
