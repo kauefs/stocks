@@ -73,7 +73,7 @@ df1['MA15'] = df1['Close'].rolling(window=15).mean()
 
 fig = make_subplots(rows=  2, cols  =  1, shared_xaxes=True,
                     vertical_spacing=.05,
-                    subplot_titles  =('','Volume'),
+                    subplot_titles  =('Price','Volume'),
                     row_width       =[.25,.75])
 fig.add_trace(go.Candlestick(x      =df1['Date' ],
                              open   =df1['Open' ],
@@ -117,7 +117,7 @@ df2['MA15'] = df2['Close'].rolling(window=15).mean()
 
 fig = make_subplots(rows=  2, cols  = 1, shared_xaxes=True,
                     vertical_spacing=.05,
-                    subplot_titles  =('','Volume'),
+                    subplot_titles  =('Price','Volume'),
                     row_width       =[.25,.75])
 fig.add_trace(go.Candlestick(x      =df2['Date' ],
                              open   =df2['Open' ],
@@ -145,7 +145,7 @@ fig.add_trace(go.Bar(x              =df2['Date'  ],
                      y              =df2['Volume'],
                      name           =    'Volume'),
                      row            =2, col=1)
-fig.update_layout(yaxis_title       =    'Price',
+fig.update_layout(#yaxis_title       =    'Price',
                   xaxis_rangeslider_visible= False,
                   width             =1000,   height=555)
 st.plotly_chart(fig, theme='streamlit')
