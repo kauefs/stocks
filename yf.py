@@ -45,7 +45,7 @@ def LoadData               (ticker):
     df   = yf .download(stock, start=start, end=end, auto_adjust=True, rounding=True)
     if df.empty  : return None
     df        .reset_index(inplace=True )
-    df['Date']=pd.to_datetime(df1['Date'], format='%Y-%m-%d').dt.date
+    df['Date']=pd.to_datetime(df ['Date'], format='%Y-%m-%d').dt.date
     df   = df[['Date','Open','High','Low','Close','Volume']].dropna( )
     return df
 with st.spinner('Loading Data…'):df=LoadData(ticker)
