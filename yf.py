@@ -1,6 +1,24 @@
-import streamlit            as   st
-import yfinance             as   yf
-from   datetime           import date
+# Libraries:
+import pandas                as pd
+import yfinance              as yf
+import streamlit             as st
+import plotly.graph_objects  as go
+from   plotly.subplots   import make_subplots
+from       ta.volatility import BollingerBands
+from          datetime   import date, timedelta
+st.set_page_config(page_title='Stocks', page_icon='📊', layout='wide', initial_sidebar_state='expanded')
+# SIDE:
+st.sidebar.title    ('ƊⱭȾɅViƧi🧿Ƞ&trade;')
+st.sidebar.divider  (                     )
+st.sidebar.header   ('Stocks'             )
+# st.sidebar.success  ('Stocks'             )
+st.sidebar.subheader('Data Analysis'      )
+# st.sidebar.info     ('Data Analysis'      )
+# st.sidebar.write    ('Comparisson Charts' )
+st.sidebar.success  ('Comparisson Charts' )
+st.sidebar.divider  (                     )
+
+
 start ='2025-08-01'
 end   =date.today( ).strftime('%Y-%m-%d')
 st.title('Stock')
