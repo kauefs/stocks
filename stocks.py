@@ -76,40 +76,39 @@ bb = BollingerBands(close=close1, window=15, window_dev=2)
 df1['BBH' ]=bb.bollinger_hband( )
 df1['BBL' ]=bb.bollinger_lband( )
 df1['MA15']=df1['Close'].rolling(window=15).mean( )
-fig=make_subplots(rows=2, cols=1, shared_xaxes=True,
+fig1=make_subplots(rows=2, cols=1, shared_xaxes=True,
                     vertical_spacing= .05,
                     subplot_titles  =('Price','Volume'),
                     row_width       =[.25,.75])
-fig.add_trace(go.Candlestick(x      =df1.index,
+fig1.add_trace(go.Candlestick(x      =df1.index,
                              open   =df1['Open' ],
                              high   =df1['High' ],
                              low    =df1['Low'  ],
                              close  =df1['Close'],
                              name   =    'CandleStick'),
                              row    =  1, col =1)
-fig.add_trace(go.Scatter(x          =df1.index,
+fig1.add_trace(go.Scatter(x          =df1.index,
                          y          =df1['BBH'  ],
                          mode       =    'lines',
                          name       =    'BBH – Bollinger Higher Band'),
                          row        =  1, col =1)
-fig.add_trace(go.Scatter(x          =df1.index,
+fig1.add_trace(go.Scatter(x          =df1.index,
                          y          =df1['MA15' ],
                          mode       =    'lines',
                          name       =    'MA15 – Moving Average 15 Days'),
                          row        =  1, col =1)
-fig.add_trace(go.Scatter(x          =df1.index,
+fig1.add_trace(go.Scatter(x          =df1.index,
                          y          =df1['BBL'  ],
                          mode       =    'lines',
                          name       =    'BBL – Bollinger Lower Band'),
                          row        =  1, col =1 )
-fig.add_trace(go.Bar(x              =df1.index,
+fig1.add_trace(go.Bar(x              =df1.index,
                      y              =df1['Volume'],
                      name           =    'Volume'),
                      row            =  2, col =1 )
-fig.update_layout(#yaxis_title       =    'Price',
-                  xaxis_rangeslider_visible= False,
-                  width            = 1000 , height=555)
-st.plotly_chart(fig, theme='streamlit')
+fig1.update_layout(xaxis_rangeslider_visible= False,
+                   width            = 1000 , height=555)
+st.plotly_chart(fig1, theme='streamlit')
 st.divider     (                      )
 
 st.markdown(f'''➡️ **{stock2}**:''')
@@ -118,38 +117,37 @@ bb = BollingerBands(close=close2, window=15, window_dev=2)
 df2['BBH' ]=bb.bollinger_hband( )
 df2['BBL' ]=bb.bollinger_lband( )
 df2['MA15']=df2['Close'].rolling(window=15).mean( )
-fig = make_subplots(rows=2, cols=1, shared_xaxes=True,
+fig2= make_subplots(rows=2, cols=1, shared_xaxes=True,
                     vertical_spacing= .05,
                     subplot_titles  =('Price','Volume'),
                     row_width       =[.25,.75])
-fig.add_trace(go.Candlestick(x      =df2.index,
+fig2.add_trace(go.Candlestick(x      =df2.index,
                              open   =df2['Open' ],
                              high   =df2['High' ],
                              low    =df2['Low'  ],
                              close  =df2['Close'],
                              name   =    'CandleStick'),
                              row    =  1, col =1)
-fig.add_trace(go.Scatter(x          =df2.index,
+fig2.add_trace(go.Scatter(x          =df2.index,
                          y          =df2['BBH'  ],
                          mode       =    'lines',
                          name       =    'BBH – Bollinger Higher Band'),
                          row        =  1, col =1)
-fig.add_trace(go.Scatter(x          =df2.index,
+fig2.add_trace(go.Scatter(x          =df2.index,
                          y          =df2['MA15' ],
                          mode       =    'lines',
                          name       =    'MA15 – Moving Average 15 Days'),
                          row        =  1, col =1)
-fig.add_trace(go.Scatter(x          =df2.index,
+fig2.add_trace(go.Scatter(x          =df2.index,
                          y          =df2['BBL'  ],
                          mode       =    'lines',
                          name       =    'BBL – Bollinger Lower Band'),
                          row        =  1, col = 1)
-fig.add_trace(go.Bar(x              =df2.index,
+fig2.add_trace(go.Bar(x              =df2.index,
                      y              =df2['Volume'],
                      name           =    'Volume'),
                      row            =  2, col = 1)
-fig.update_layout(#yaxis_title       =    'Price',
-                  xaxis_rangeslider_visible= False,
-                  width            = 1000 , height=555)
-st.plotly_chart(fig, theme='streamlit')
+fig2.update_layout(xaxis_rangeslider_visible= False,
+                   width            = 1000 , height=555)
+st.plotly_chart(fig2, theme='streamlit')
 st.divider     (                      )
