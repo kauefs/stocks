@@ -29,19 +29,37 @@ End            =(date.today(  )-timedelta(days=  1))
 start          =st.sidebar.date_input(label='From:', value=Start, format='YYYY.MM.DD')
 end            =st.sidebar.date_input(label= 'To:' , value= End , format='YYYY.MM.DD')
 
-df1            =yf.download(stock1, start=start, end=end, prepost=False, auto_adjust=False, actions=False, rounding=True, multi_level_index=False)
-df1.reset_index(inplace=True)
-df1['Date']    =pd.to_datetime(df1['Date'], format='%Y-%m-%d').dt.date
-FilteredDF1    =df1.loc[(df1['Date'] >= start)&(df1['Date']  <= end)]
-Stock1         = (FilteredDF1['High']  + FilteredDF1['Low'])/2
+@st.cache_data
+def LoadData1               (stocks1):
+    stock1=[i+'.SA' for i in stocks1]
+    DF1  =  yf .download(stock1, start=start, end=end, auto_adjust=True, rounding=True)
+    DF1  = DF1[['Open','High','Low','Close','Volume']].dropna( )
+    return DF1
+
+df1=LoadData1(stock1)
+# df1            =yf.download(stock1, start=start, end=end, prepost=False, auto_adjust=False, actions=False, rounding=True, multi_level_index=False)
+# df1.reset_index(inplace=True)
+# df1['Date']    =pd.to_datetime(df1['Date'], format='%Y-%m-%d').dt.date
+# FilteredDF1    =df1.loc[(df1['Date'] >= start)&(df1['Date']  <= end)]
+FilteredDF1    =df1.loc[(df1.index >= start)&(df1.index  <= end)]
+Stock1         = (FilteredDF1['High']+FilteredDF1['Low'])/2
 SideBarInfo1.info('{} entries for {}'.format(Stock1.shape[0], stock1))
 
-df2            =yf.download(stock2, start=start, end=end, prepost=False, auto_adjust=False, actions=False, rounding=True, multi_level_index=False)
-df2.reset_index(inplace=True)
-df2['Date']    =pd.to_datetime(df2['Date'], format='%Y-%m-%d').dt.date
-FilteredDF2    =df2.loc[(df2['Date'] >= start)&(df2['Date']  <= end)]
-Stock2         = (FilteredDF2['High']  + FilteredDF2['Low'])/2
-SideBarInfo2.info  ('{} entries for {}'.format(Stock2.shape[0], stock2))
+@st.cache_data
+def LoadData2               (stocks2):
+    stock2=[i+'.SA' for i in stocks2]
+    DF2  =  yf .download(stock2, start=start, end=end, auto_adjust=True, rounding=True)
+    DF2  = DF2[['Open','High','Low','Close','Volume']].dropna( )
+    return DF2
+
+df2=LoadData2(stock2)
+# df2            =yf.download(stock2, start=start, end=end, prepost=False, auto_adjust=False, actions=False, rounding=True, multi_level_index=False)
+# df2.reset_index(inplace=True)
+# df2['Date']    =pd.to_datetime(df2['Date'], format='%Y-%m-%d').dt.date
+# FilteredDF2    =df2.loc[(df2['Date'] >= start)&(df2['Date']  <= end)]
+FilteredDF2    =df2.loc[(df2.index>=start)&(df2.index<=end)]
+Stock2         = (FilteredDF2['High']+FilteredDF2['Low'])/2
+SideBarInfo2.info('{} entries for {}'.format(Stock2.shape[0], stock2))
 
 st.sidebar.divider (                                                        )
 st.sidebar.markdown('''Data: [Yahoo! Finance](https://finance.yahoo.com/)''')
@@ -74,29 +92,29 @@ fig=make_subplots(rows=2, cols=1, shared_xaxes=True,
                     vertical_spacing= .05,
                     subplot_titles  =('Price','Volume'),
                     row_width       =[.25,.75])
-fig.add_trace(go.Candlestick(x      =df1['Date' ],
+fig.add_trace(go.Candlestick(x      =df1.index,
                              open   =df1['Open' ],
                              high   =df1['High' ],
                              low    =df1['Low'  ],
                              close  =df1['Close'],
                              name   =    'CandleStick'),
                              row    =  1, col =1)
-fig.add_trace(go.Scatter(x          =df1['Date' ],
+fig.add_trace(go.Scatter(x          =df1.index,
                          y          =df1['BBH'  ],
                          mode       =    'lines',
                          name       =    'BBH – Bollinger Higher Band'),
                          row        =  1, col =1)
-fig.add_trace(go.Scatter(x          =df1['Date' ],
+fig.add_trace(go.Scatter(x          =df1.index,
                          y          =df1['MA15' ],
                          mode       =    'lines',
                          name       =    'MA15 – Moving Average 15 Days'),
                          row        =  1, col =1)
-fig.add_trace(go.Scatter(x          =df1['Date' ],
+fig.add_trace(go.Scatter(x          =df1.index,
                          y          =df1['BBL'  ],
                          mode       =    'lines',
                          name       =    'BBL – Bollinger Lower Band'),
                          row        =  1, col =1 )
-fig.add_trace(go.Bar(x              =df1['Date'  ],
+fig.add_trace(go.Bar(x              =df1.index,
                      y              =df1['Volume'],
                      name           =    'Volume'),
                      row            =  2, col =1 )
@@ -116,29 +134,29 @@ fig = make_subplots(rows=2, cols=1, shared_xaxes=True,
                     vertical_spacing= .05,
                     subplot_titles  =('Price','Volume'),
                     row_width       =[.25,.75])
-fig.add_trace(go.Candlestick(x      =df2['Date' ],
+fig.add_trace(go.Candlestick(x      =df2.index,
                              open   =df2['Open' ],
                              high   =df2['High' ],
                              low    =df2['Low'  ],
                              close  =df2['Close'],
                              name   =    'CandleStick'),
                              row    =  1, col =1)
-fig.add_trace(go.Scatter(x          =df2['Date' ],
+fig.add_trace(go.Scatter(x          =df2.index,
                          y          =df2['BBH'  ],
                          mode       =    'lines',
                          name       =    'BBH – Bollinger Higher Band'),
                          row        =  1, col =1)
-fig.add_trace(go.Scatter(x          =df2['Date' ],
+fig.add_trace(go.Scatter(x          =df2.index,
                          y          =df2['MA15' ],
                          mode       =    'lines',
                          name       =    'MA15 – Moving Average 15 Days'),
                          row        =  1, col =1)
-fig.add_trace(go.Scatter(x          =df2['Date' ],
+fig.add_trace(go.Scatter(x          =df2.index,
                          y          =df2['BBL'  ],
                          mode       =    'lines',
                          name       =    'BBL – Bollinger Lower Band'),
                          row        =  1, col = 1)
-fig.add_trace(go.Bar(x              =df2['Date'  ],
+fig.add_trace(go.Bar(x              =df2.index,
                      y              =df2['Volume'],
                      name           =    'Volume'),
                      row            =  2, col = 1)
