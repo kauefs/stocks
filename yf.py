@@ -3,8 +3,6 @@ import pandas                as pd
 import yfinance              as yf
 import streamlit             as st
 import plotly.graph_objects  as go
-from   plotly.subplots   import make_subplots
-from       ta.volatility import BollingerBands
 from          datetime   import date, timedelta
 st.set_page_config(page_title='Stocks', page_icon='📊', layout='wide', initial_sidebar_state='expanded')
 # SIDE:
@@ -14,12 +12,12 @@ st.sidebar.header   ('Stocks'             )
 st.sidebar.subheader('Data Analysis'      )
 st.sidebar.success  ('Stock Analysis'     )
 st.sidebar.divider  (                     )
-ticker     =st.sidebar.text_input('Stock Ticker', 'FESA4' )
-SideBarInfo=st.sidebar.empty     (                        )
-Start          =(date.today(     )-timedelta(days= 365  ) )
-End            =(date.today(     )-timedelta(days=   1  ) )
-start          =st.sidebar.date_input(label='start', value=Start, format='YYYY.MM.DD')
-end            =st.sidebar.date_input(label= 'end' , value= End , format='YYYY.MM.DD')
+ticker     =st.sidebar.text_input('Ticker', 'FESA4' )
+SideBarInfo=st.sidebar.empty     (                  )
+Start      =(date.today(     )-timedelta(days= 365) )
+End        =(date.today(     )-timedelta(days=   1) )
+start      =st.sidebar.date_input(label='start', value=Start, format='YYYY.MM.DD')
+end        =st.sidebar.date_input(label= 'end' , value= End , format='YYYY.MM.DD')
 st.sidebar.divider (                                                        )
 st.sidebar.markdown('''Data from [Yahoo! Finance](https://finance.yahoo.com/)''')
 st.sidebar.markdown('''
@@ -34,6 +32,7 @@ st.sidebar.markdown('''
 
 [![ƊⱭȾɅViƧi🧿Ƞ](https://img.shields.io/badge/ƊⱭȾɅViƧi🧿Ƞ&trade;-0065FF?style=plastic&logoColor=0065FF&label=&copy;2025&labelColor=0065FF)](https://datavision.one/)
                     ''')
+# MAIN:
 # start ='2025-08-01'
 # end   =date.today( ).strftime('%Y-%m-%d')
 st.title('Stock Analysis')
@@ -43,20 +42,22 @@ def LoadData               (ticker):
     '''DownLoads Stocks Data from yFinance'''
     if not ticker: return None
     stock=[i+'.SA' for i in ticker]
-    df=yf.download(stock, start=start, end=end, auto_adjust=True, rounding=True)
-    df=df[['Open','High','Low','Close','Volume']].dropna( )
+    df   = yf .download(stock, start=start, end=end, prepost=False, auto_adjust=False, actions=False, rounding=True, multi_level_index=False)
+    df        .reset_index(inplace=True )
+    df['Date']=pd.to_datetime(df1['Date'], format='%Y-%m-%d').dt.date
+    df   = df[['Date','Open','High','Low','Close','Volume']].dropna( )
     return df
 with st.spinner('Loading Data…'):df=LoadData(ticker)
-if  df is not None and not df.empty:
+if   df is not None and not      df.empty:
     # st.subheader('Raw Data')
     # st.dataframe(df)
-    trace2={'x'       : df.index ,
+    trace2={'x'       : df.Date  ,
             'y'       : df.High  ,
             'type'    : 'scatter',
             'mode'    : 'lines'  ,
             'line'    :{'width':2,                          'color':'#00FFFF'},
             'showlegend': False  }
-    trace3={'x'       : df.index ,
+    trace3={'x'       : df.Date  ,
             'y'       : df.Low   ,
             'type'    : 'scatter',
             'mode'    : 'lines'  ,
@@ -66,5 +67,5 @@ if  df is not None and not df.empty:
     layout=go.Layout(xaxis_rangeslider_visible=False, paper_bgcolor='#FFFFFF', plot_bgcolor='#000000', title=stock[0])
     fig   =go.Figure(data=data , layout=layout)
     st.plotly_chart (fig, theme=  'streamlit' )
-else:st.warning     ('No Data Found for Selected Tickers.')
+else:st.warning     ('No Data Found for Selected Ticker.')
 st.divider          (                         )
