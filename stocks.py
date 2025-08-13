@@ -11,10 +11,7 @@ st.set_page_config(page_title='Stocks', page_icon='📊', layout='wide', initial
 st.sidebar.title    ('ƊⱭȾɅViƧi🧿Ƞ&trade;')
 st.sidebar.divider  (                     )
 st.sidebar.header   ('Stocks'             )
-# st.sidebar.success  ('Stocks'             )
 st.sidebar.subheader('Data Analysis'      )
-# st.sidebar.info     ('Data Analysis'      )
-# st.sidebar.write    ('Comparisson Charts' )
 st.sidebar.success  ('Comparisson Charts' )
 st.sidebar.divider  (                     )
 
@@ -26,8 +23,8 @@ SideBarInfo2   =st.sidebar.empty     (                        )
 
 Start          =(date.today(  )-timedelta(days=150))
 End            =(date.today(  )-timedelta(days=  1))
-start          =st.sidebar.date_input(label='From', value=Start, format='YYYY.MM.DD')
-end            =st.sidebar.date_input(label= 'To' , value= End , format='YYYY.MM.DD')
+start          =st.sidebar.date_input(label='start', value=Start, format='YYYY.MM.DD')
+end            =st.sidebar.date_input(label= 'end' , value= End , format='YYYY.MM.DD')
 
 @st.cache_data
 def LoadData(ticker):
@@ -36,8 +33,10 @@ def LoadData(ticker):
         # Append '.SA' for Brazilian Stocks:
         stock= f'{ticker}.SA'
         df   =yf.download(stock, start=start, end=end, auto_adjust=True, rounding=True)
+        df.reset_index(inplace=True)
+        df['Date']=pd.to_datetime(df['Date'], format='%Y-%m-%d').dt.date
         # Check if DataFrame is Empty Before Processing:
-        if not df.empty:df=df[['Open','High','Low','Close','Volume']].dropna( )
+        if not df.empty:df=df[['Date','Open','High','Low','Close','Volume']].dropna( )
         return df
     except Exception as e:
         st.error(f'Error Fetching Data for {ticker}: {e}')
@@ -80,29 +79,29 @@ fig1=make_subplots(rows=2, cols=1, shared_xaxes=True,
                     vertical_spacing= .05,
                     subplot_titles  =('Price','Volume'),
                     row_width       =[.25,.75])
-fig1.add_trace(go.Candlestick(x      =df1.index,
+fig1.add_trace(go.Candlestick(x     =df1['Date' ],
                              open   =df1['Open' ],
                              high   =df1['High' ],
                              low    =df1['Low'  ],
                              close  =df1['Close'],
                              name   =    'CandleStick'),
                              row    =  1, col =1)
-fig1.add_trace(go.Scatter(x          =df1.index,
+fig1.add_trace(go.Scatter(x         =df1['Date' ],
                          y          =df1['BBH'  ],
                          mode       =    'lines',
                          name       =    'BBH – Bollinger Higher Band'),
                          row        =  1, col =1)
-fig1.add_trace(go.Scatter(x          =df1.index,
+fig1.add_trace(go.Scatter(x         =df1['Date' ],
                          y          =df1['MA15' ],
                          mode       =    'lines',
                          name       =    'MA15 – Moving Average 15 Days'),
                          row        =  1, col =1)
-fig1.add_trace(go.Scatter(x          =df1.index,
+fig1.add_trace(go.Scatter(x         =df1['Date' ],
                          y          =df1['BBL'  ],
                          mode       =    'lines',
                          name       =    'BBL – Bollinger Lower Band'),
                          row        =  1, col =1 )
-fig1.add_trace(go.Bar(x              =df1.index,
+fig1.add_trace(go.Bar(x              =df1['Date' ],
                      y              =df1['Volume'],
                      name           =    'Volume'),
                      row            =  2, col =1 )
@@ -121,29 +120,29 @@ fig2= make_subplots(rows=2, cols=1, shared_xaxes=True,
                     vertical_spacing= .05,
                     subplot_titles  =('Price','Volume'),
                     row_width       =[.25,.75])
-fig2.add_trace(go.Candlestick(x      =df2.index,
+fig2.add_trace(go.Candlestick(x     =df2['Date' ],
                              open   =df2['Open' ],
                              high   =df2['High' ],
                              low    =df2['Low'  ],
                              close  =df2['Close'],
                              name   =    'CandleStick'),
                              row    =  1, col =1)
-fig2.add_trace(go.Scatter(x          =df2.index,
+fig2.add_trace(go.Scatter(x         =df2['Date' ],
                          y          =df2['BBH'  ],
                          mode       =    'lines',
                          name       =    'BBH – Bollinger Higher Band'),
                          row        =  1, col =1)
-fig2.add_trace(go.Scatter(x          =df2.index,
+fig2.add_trace(go.Scatter(x         =df2['Date' ],
                          y          =df2['MA15' ],
                          mode       =    'lines',
                          name       =    'MA15 – Moving Average 15 Days'),
                          row        =  1, col =1)
-fig2.add_trace(go.Scatter(x          =df2.index,
+fig2.add_trace(go.Scatter(x         =df2['Date' ],
                          y          =df2['BBL'  ],
                          mode       =    'lines',
                          name       =    'BBL – Bollinger Lower Band'),
                          row        =  1, col = 1)
-fig2.add_trace(go.Bar(x              =df2.index,
+fig2.add_trace(go.Bar(x             =df2['Date' ],
                      y              =df2['Volume'],
                      name           =    'Volume'),
                      row            =  2, col = 1)
