@@ -10,11 +10,12 @@ st.set_page_config(page_title='Stocks', page_icon='📊', layout='wide', initial
 # SIDE:
 st.sidebar.title    ('ƊⱭȾɅViƧi🧿Ƞ&trade;')
 st.sidebar.divider  (                     )
-# st.sidebar.header   ('Stocks'           )
-st.sidebar.success  ('Stocks'             )
-# st.sidebar.subheader('Data Analysis'    )
-st.sidebar.info     ('Data Analysis'      )
-st.sidebar.write    ('Comparisson Charts' )
+st.sidebar.header   ('Stocks'             )
+# st.sidebar.success  ('Stocks'             )
+st.sidebar.subheader('Data Analysis'      )
+# st.sidebar.info     ('Data Analysis'      )
+# st.sidebar.write    ('Comparisson Charts' )
+st.sidebar.success  ('Comparisson Charts' )
 st.sidebar.divider  (                     )
 
 stock1         =st.sidebar.text_input('Yahoo! Stock Ticker 1:','BBAS3.SA')
