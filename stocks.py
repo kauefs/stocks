@@ -18,48 +18,36 @@ st.sidebar.subheader('Data Analysis'      )
 st.sidebar.success  ('Comparisson Charts' )
 st.sidebar.divider  (                     )
 
-stock1         =st.sidebar.text_input('Yahoo! Stock Ticker 1:','BBAS3.SA')
+stock1         =st.sidebar.text_input('Yahoo! Stock Ticker 1','BBAS3.SA')
 SideBarInfo1   =st.sidebar.empty     (                                   )
 
-stock2         =st.sidebar.text_input('Yahoo! Stock Ticker 2:','BBSE3.SA')
+stock2         =st.sidebar.text_input('Yahoo! Stock Ticker 2','BBSE3.SA')
 SideBarInfo2   =st.sidebar.empty     (                                   )
 
 Start          =(date.today(  )-timedelta(days=150))
 End            =(date.today(  )-timedelta(days=  1))
-start          =st.sidebar.date_input(label='From:', value=Start, format='YYYY.MM.DD')
-end            =st.sidebar.date_input(label= 'To:' , value= End , format='YYYY.MM.DD')
+start          =st.sidebar.date_input(label='From', value=Start, format='YYYY.MM.DD')
+end            =st.sidebar.date_input(label= 'To' , value= End , format='YYYY.MM.DD')
 
 @st.cache_data
-def LoadData1               (stocks1):
-    stock1=[i+'.SA' for i in stocks1]
-    DF1  =  yf .download(stock1, start=start, end=end, auto_adjust=True, rounding=True)
-    DF1  = DF1[['Open','High','Low','Close','Volume']].dropna( )
-    return DF1
-
-df1=LoadData1(stock1)
-# df1            =yf.download(stock1, start=start, end=end, prepost=False, auto_adjust=False, actions=False, rounding=True, multi_level_index=False)
-# df1.reset_index(inplace=True)
-# df1['Date']    =pd.to_datetime(df1['Date'], format='%Y-%m-%d').dt.date
-# FilteredDF1    =df1.loc[(df1['Date'] >= start)&(df1['Date']  <= end)]
-FilteredDF1    =df1.loc[(df1.index >= start)&(df1.index  <= end)]
-Stock1         = (FilteredDF1['High']+FilteredDF1['Low'])/2
-SideBarInfo1.info('{} entries for {}'.format(Stock1.shape[0], stock1))
-
-@st.cache_data
-def LoadData2               (stocks2):
-    stock2=[i+'.SA' for i in stocks2]
-    DF2  =  yf .download(stock2, start=start, end=end, auto_adjust=True, rounding=True)
-    DF2  = DF2[['Open','High','Low','Close','Volume']].dropna( )
-    return DF2
-
-df2=LoadData2(stock2)
-# df2            =yf.download(stock2, start=start, end=end, prepost=False, auto_adjust=False, actions=False, rounding=True, multi_level_index=False)
-# df2.reset_index(inplace=True)
-# df2['Date']    =pd.to_datetime(df2['Date'], format='%Y-%m-%d').dt.date
-# FilteredDF2    =df2.loc[(df2['Date'] >= start)&(df2['Date']  <= end)]
-FilteredDF2    =df2.loc[(df2.index>=start)&(df2.index<=end)]
-Stock2         = (FilteredDF2['High']+FilteredDF2['Low'])/2
-SideBarInfo2.info('{} entries for {}'.format(Stock2.shape[0], stock2))
+def LoadData(ticker):
+    '''DownLoads Stock Data from yFinance for a Single Ticker.'''
+    try:
+        # Append '.SA' for Brazilian Stocks:
+        stock= f'{ticker}.SA'
+        df   =yf.download(stock, start=start, end=end, auto_adjust=True, rounding=True)
+        # Check if DataFrame is Empty Before Processing:
+        if not df.empty:df=df[['Open','High','Low','Close','Volume']].dropna( )
+        return df
+    except Exception as e:
+        st.error(f'Error Fetching Data for {ticker}: {e}')
+        return pd.DataFrame( ) # Return Empty DataFrame on Error
+df1=LoadData(stock1)
+if not df1.empty:SideBarInfo1.info('{} entries for {}'.format(df1.shape[0], stock1))
+else            :SideBarInfo1.warning(f'No Data Found for {stock1}.')
+df2=LoadData(stock2)
+if not df2.empty:SideBarInfo2.info('{} entries for {}'.format(df2.shape[0], stock2))
+else            :SideBarInfo2.warning(f'No Data Found for {stock2}.')
 
 st.sidebar.divider (                                                        )
 st.sidebar.markdown('''Data: [Yahoo! Finance](https://finance.yahoo.com/)''')
