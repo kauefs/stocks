@@ -108,7 +108,7 @@ fig1.add_trace(go.Bar(x              =df1.index,
                      row            =  2, col =1 )
 fig1.update_layout(xaxis_rangeslider_visible= False,
                    width            = 1000 , height=555)
-st.plotly_chart(fig1, theme='streamlit')
+st.plotly_chart(fig1, key='Chart1', theme='streamlit')
 st.divider     (                      )
 
 st.markdown(f'''➡️ **{stock2}**:''')
@@ -149,5 +149,5 @@ fig2.add_trace(go.Bar(x              =df2.index,
                      row            =  2, col = 1)
 fig2.update_layout(xaxis_rangeslider_visible= False,
                    width            = 1000 , height=555)
-st.plotly_chart(fig2, theme='streamlit')
+st.plotly_chart(fig2, key='Chart2', theme='streamlit')
 st.divider     (                      )
