@@ -35,8 +35,10 @@ st.sidebar.markdown('''
 # MAIN:
 # start ='2025-08-01'
 # end   =date.today( ).strftime('%Y-%m-%d')
-st.title('Stock Analysis')
 # stocks=st.multiselect('Select Stock Ticker',['VALE3','PETR4','BBAS3','BBSE3','ITUB3'], default=['VALE3'])
+st.sidebar.divider (     )
+st.warning('Stock Analysis')
+st.sidebar.divider (     )
 @st.cache_data
 def LoadData               (ticker):
     '''DownLoads Stocks Data from yFinance'''
@@ -50,13 +52,13 @@ def LoadData               (ticker):
     return df
 with st.spinner('Loading Data…'):df=LoadData(ticker)
 if   df is not None:
-    # st.subheader('Raw Data')
-    # st.dataframe(df)
+    st.subheader('Raw Data')
+    st.dataframe(df)
     SideBarInfo.info((f'{len(df)} entries for {ticker}'))
     high=go.Scatter (x=df.index, y=df.High, mode='lines', line={'width':2,'color':'#00FFFF'}, name='High')
     low =go.Scatter (x=df.index, y=df.Low , mode='lines', line={'width':2,'color':'#808080'}, name='Low' )
     fig =go.Figure(data=[ high , low])
-    fig.update_layout(xaxis_rangeslider_visible=False, paper_bgcolor=None, plot_bgcolor=None, title=f'{ticker} High & Low Prices')
+    fig.update_layout(xaxis_rangeslider_visible=False, paper_bgcolor='#F0F0F0', plot_bgcolor='#C0C0C0', title=f'{ticker} High & Low Prices')
     st.plotly_chart (fig, use_container_width  = True, theme=      'streamlit')
 else:st.warning     ('No Data Found for Selected Ticker.')
 st.divider          (                                    )
