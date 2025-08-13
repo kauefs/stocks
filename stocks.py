@@ -62,6 +62,7 @@ st.divider  (                       )
 st.title    ('STOCKS'               )
 st.divider  (                       )
 st.subheader('Comparisson Charts'   )
+st.divider  (                       )
 
 st.markdown (f'''➡️ **{stock1}**:''')
 close1=df1['Close']=df1['Close'].squeeze( )
