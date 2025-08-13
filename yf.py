@@ -41,31 +41,22 @@ st.title('Stock Analysis')
 def LoadData               (ticker):
     '''DownLoads Stocks Data from yFinance'''
     if not ticker: return None
-    stock=[i+'.SA' for i in ticker]
-    df   = yf .download(stock, start=start, end=end, prepost=False, auto_adjust=False, actions=False, rounding=True, multi_level_index=False)
+    stock=[f'{ticker}.SA']
+    df   = yf .download(stock, start=start, end=end, auto_adjust=True, rounding=True)
+    if df.empty  : return None
     df        .reset_index(inplace=True )
     df['Date']=pd.to_datetime(df1['Date'], format='%Y-%m-%d').dt.date
     df   = df[['Date','Open','High','Low','Close','Volume']].dropna( )
     return df
 with st.spinner('Loading Data…'):df=LoadData(ticker)
-if   df is not None and not      df.empty:
+if   df is not None:
     # st.subheader('Raw Data')
     # st.dataframe(df)
-    trace2={'x'       : df.Date  ,
-            'y'       : df.High  ,
-            'type'    : 'scatter',
-            'mode'    : 'lines'  ,
-            'line'    :{'width':2,                          'color':'#00FFFF'},
-            'showlegend': False  }
-    trace3={'x'       : df.Date  ,
-            'y'       : df.Low   ,
-            'type'    : 'scatter',
-            'mode'    : 'lines'  ,
-            'line'    :{'width':2,                          'color':'#808080'},
-            'showlegend': False  }
-    data  =   [trace2,trace3]
-    layout=go.Layout(xaxis_rangeslider_visible=False, paper_bgcolor='#FFFFFF', plot_bgcolor='#000000', title=stock[0])
-    fig   =go.Figure(data=data , layout=layout)
-    st.plotly_chart (fig, theme=  'streamlit' )
+    SideBarInfo.info((f'{len(df)} entries for {ticker}'))
+    high=go.Scatter (x=df.index, y=df.High, mode='lines', line={'width':2,'color':'#00FFFF'}, name='High')
+    low =go.Scatter (x=df.index, y=df.Low , mode='lines', line={'width':2,'color':'#808080'}, name='Low' )
+    fig =go.Figure(data=[ high , low])
+    fig.update_layout(xaxis_rangeslider_visible=False, paper_bgcolor='#FFFFFF', plot_bgcolor='#000000', title=f'{ticker} High & Low Prices')
+    st.plotly_chart (fig, use_container_width  = True, theme=      'streamlit')
 else:st.warning     ('No Data Found for Selected Ticker.')
-st.divider          (                         )
+st.divider          (                                    )
