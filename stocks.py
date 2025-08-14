@@ -29,8 +29,8 @@ def LoadData(ticker, start, end):
         if not ticker:return pd.DataFrame( )
         # Append '.SA' for Brazilian (B3) Stocks:
         B3= f'{ticker}.SA'
-        df            =yf.download(  B3 , start=start, end=end, prepost=False, auto_adjust=False, actions=False, rounding=True, multi_level_index=False)
-        if df.empty:df=yf.download(stock, start=start, end=end, prepost=False, auto_adjust=False, actions=False, rounding=True, multi_level_index=False)
+        df            =yf.download(  B3  , start=start, end=end, prepost=False, auto_adjust=False, actions=False, rounding=True, multi_level_index=False)
+        if df.empty:df=yf.download(ticker, start=start, end=end, prepost=False, auto_adjust=False, actions=False, rounding=True, multi_level_index=False)
         # Check if DataFrame is Empty Before Processing:
         if not df.empty:
             df.reset_index(inplace=True)
