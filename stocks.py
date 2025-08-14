@@ -23,7 +23,7 @@ End            =(date.today(  )-timedelta ( days =  1 ) )
 start          =st.sidebar.date_input(label='start', value=Start, format='YYYY.MM.DD')
 end            =st.sidebar.date_input(label= 'end' , value= End , format='YYYY.MM.DD')
 @st.cache_data
-def LoadData(ticker):
+def LoadData(ticker, start, end):
     '''DownLoads Stock Data from yFinance for a Single Ticker.'''
     try:
         # Append '.SA' for Brazilian (B3) Stocks:
