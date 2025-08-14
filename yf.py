@@ -1,9 +1,10 @@
 # Libraries:
-import pandas                as pd
-import yfinance              as yf
-import streamlit             as st
-import plotly.graph_objects  as go
-from          datetime   import date, timedelta
+import pandas                as   pd
+import yfinance              as   yf
+import streamlit             as   st
+import plotly.graph_objects  as   go
+from   plotly.subplots     import make_subplots
+from          datetime     import date, timedelta
 st.set_page_config(page_title='Stocks', page_icon='📊', layout='wide', initial_sidebar_state='expanded')
 # SIDE:
 st.sidebar.title    ('ƊⱭȾɅViƧi🧿Ƞ&trade;')
