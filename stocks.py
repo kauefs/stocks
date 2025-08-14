@@ -79,7 +79,7 @@ def StockChart(df, ticker, key):
                       subplot_titles=('Price', 'Volume'), row_width=[.25, .75])
     # CandleStick:
     fig.add_trace(go.Candlestick(x=df['Date'], open=df['Open'], high=df['High'], low=df['Low'], close=df['Close'],
-                                 name='CandleStick', increasing_line_color='#00FF00', decreasing_line_color='#FFA500'),
+                                 name='CandleStick', increasing_line_color='#C0C0C0', decreasing_line_color='#808080'),
                   row=1, col=1)
     # Traces:
     fig.add_trace(go.Scatter(x=df['Date'], y=df['BBH' ], mode='lines', line={'width':1.50,'color':'#00FF00'}, name='BBH   – Bollinger Higher Band'), row=1, col=1)
