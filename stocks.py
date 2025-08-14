@@ -99,9 +99,9 @@ fig1.add_trace(go.Scatter(x         =df1['Date'  ],
                           row       =  1, col =1 )
 fig1.add_trace(go.Bar(x             =df1['Date'  ],
                       y             =df1['Volume'],
-                      marker_color  =   '#C0C0C0'),
+                      marker_color  =   '#C0C0C0' ,
                       name          =    'Volume'),
-                      row           =  2, col = 1)
+               row                  =  2, col = 1)
 fig1.update_layout(xaxis_rangeslider_visible  =False,
                    width            = 1250 ,  height=750)
 st.plotly_chart(fig1, key='Chart1', theme='streamlit') # use_container_width=True
@@ -141,7 +141,7 @@ fig2.add_trace(go.Scatter(x         =df2['Date'  ],
 fig2.add_trace(go.Bar(x             =df2['Date'  ],
                       y             =df2['Volume'],
                       name          =    'Volume'),
-                      row           =  2, col = 1)
+               row                  =  2, col = 1)
 fig2.update_layout(xaxis_rangeslider_visible  =False,
                    width            = 1250 ,  height=750)
 st.plotly_chart(fig2, key='Chart2', theme='streamlit') # use_container_width=True
