@@ -37,10 +37,10 @@ def LoadData(ticker):
     except Exception as e:
         st.error(f'Error Fetching Data for {ticker}: {e}')
         return pd.DataFrame( ) # Return Empty DataFrame on Error
-with st.spinner('Loading Data…'):df1=LoadData(stock1)
+with st.spinner('Loading Data…'):df1=LoadData(stock1, start, end)
 if  df1 is not None and not df1.empty:SideBarInfo1.info('{} entries for {}'.format(df1.shape[0], stock1))
 else                                 :SideBarInfo1.warning(f'No Data Found for {stock1}.')
-with st.spinner('Loading Data…'):df2=LoadData(stock2)
+with st.spinner('Loading Data…'):df2=LoadData(stock2, start, end)
 if  df2 is not None and not df2.empty:SideBarInfo2.info('{} entries for {}'.format(df2.shape[0], stock2))
 else                                 :SideBarInfo2.warning(f'No Data Found for {stock2}.')
 st.sidebar.divider (                                                        )
