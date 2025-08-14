@@ -71,9 +71,9 @@ def StockChart(df, ticker, key):
     st.markdown(f'🔘 **{ticker}**')
     # Indicators:
     bb=BollingerBands(close=df['Close'], window=20, window_dev=2)
-    df['BBH' ]=bb.bollinger_hband()
-    df['BBL' ]=bb.bollinger_lband()
-    df['MA20']=df['Close'].rolling(window=20).mean()
+    df['BBH' ]=bb .bollinger_hband                       ( )
+    df['BBL' ]=bb .bollinger_lband                       ( )
+    df['MA20']=df['Close'].rolling      (window=20).mean ( )
     # SubPlots:
     fig=make_subplots(rows=2, cols=1, shared_xaxes=True, vertical_spacing=.05,
                       subplot_titles=('Price', 'Volume'), row_width=[.25, .75])
@@ -82,9 +82,9 @@ def StockChart(df, ticker, key):
                                  name='CandleStick', increasing_line_color='#00FF00', decreasing_line_color='#FFA500'),
                   row=1, col=1)
     # Traces:
-    fig.add_trace(go.Scatter(x=df['Date'], y=df['BBH' ], mode='lines', line={'width':1.5,'color':'#00FF00'}, name='BBH  – Bollinger Higher Band' ), row=1, col=1)
-    fig.add_trace(go.Scatter(x=df['Date'], y=df['MA20'], mode='lines', line={'width':1.5,'color':'#00BFFF'}, name='MA20 – Moving Average 20 Days'), row=1, col=1)
-    fig.add_trace(go.Scatter(x=df['Date'], y=df['BBL' ], mode='lines', line={'width':1.5,'color':'#FFA500'}, name='BBL   – Bollinger Lower Band' ), row=1, col=1)
+    fig.add_trace(go.Scatter(x=df['Date'], y=df['BBH' ], mode='lines', line={'width':1.50,'color':'#00FF00'}, name='BBH   – Bollinger Higher Band'), row=1, col=1)
+    fig.add_trace(go.Scatter(x=df['Date'], y=df['MA20'], mode='lines', line={'width':1.75,'color':'#00FFFF'}, name='MA20 – Moving Average 20 Days'), row=1, col=1)
+    fig.add_trace(go.Scatter(x=df['Date'], y=df['BBL' ], mode='lines', line={'width':1.50,'color':'#FFA500'}, name='BBL    – Bollinger Lower Band'), row=1, col=1)
     # Volume Bars:
     marker_color=['#00FF00' if close > open else '#FFA500' for open, close in zip(df['Open'], df['Close'])]
     fig.add_trace(go.Bar(x=df['Date'], y=df['Volume'], name='Volume', marker_color=marker_color), row=2, col=1)
@@ -94,97 +94,4 @@ def StockChart(df, ticker, key):
 # Generating Charts for Each Stock:
 if not df1.empty:StockChart(df1, stock1, 'Chart1')
 if not df2.empty:StockChart(df2, stock2, 'Chart2')
-st.divider     (    )
-
-st.markdown (f'''📈 **{stock1}**''')
-close1=df1['Close']=df1['Close'].squeeze( )
-bb1= BollingerBands(close=close1,  window=20, window_dev=2)
-df1['BBH' ]=bb1.bollinger_hband( )
-df1['BBL' ]=bb1.bollinger_lband( )
-df1['MA20']=df1['Close'].rolling  (window=20).mean( )
-fig1=make_subplots(rows=2, cols=1, shared_xaxes=True,
-                   vertical_spacing =    .05 ,
-                   subplot_titles   =('Price','Volume'),
-                   row_width        =[.25,.75])
-fig1.add_trace(go.Candlestick(x     =df1['Date'  ],
-                              open  =df1['Open'  ],
-                              high  =df1['High'  ],
-                              low   =df1['Low'   ],
-                              close =df1['Close' ],
-                              name  =    'CandleStick',
-                              increasing_line_color='#00FF00',
-                              decreasing_line_color='#FFA500'),
-               row                  =  1, col = 1)
-fig1.add_trace(go.Scatter(x         =df1['Date'  ],
-                          y         =df1['BBH'   ],
-                          mode      =    'lines'  ,
-                          line      ={'width':1.5,'color':'#00FF00'},
-                          name      =    'BBH   – Bollinger Higher Band'),
-                          row       =  1, col =1 )
-fig1.add_trace(go.Scatter(x         =df1['Date'  ],
-                          y         =df1['MA20'  ],
-                          mode      =    'lines'  ,
-                          line      ={'width':1.5,'color':'#00BFFF'},
-                          name      =    'MA20 – Moving Average 20 Days'),
-                          row       =  1, col  =1)
-fig1.add_trace(go.Scatter(x         =df1['Date'  ],
-                          y         =df1['BBL'   ],
-                          mode      =    'lines'  ,
-                          line      ={'width':1.5,'color':'#FFA500'},
-                          name      =    'BBL    – Bollinger Lower Band'),
-                          row       =  1, col =1 )
-fig1.add_trace(go.Bar(x             =df1['Date'  ],
-                      y             =df1['Volume'],
-                      marker_color  =   '#00BFFF' ,
-                      name          =    'Volume'),
-               row                  =  2, col = 1)
-fig1.update_layout(xaxis_rangeslider_visible  =False,
-                   width            = 1250 ,  height=750)
-st.plotly_chart(fig1, key='Chart1', theme='streamlit') # use_container_width=True
-st.divider     (    )
-st.markdown(f'''📉 **{stock2}**''')
-close2=df2['Close']=df2['Close'].squeeze( )
-bb2= BollingerBands(close=close2,  window=20, window_dev=2)
-df2['BBH' ]=bb2.bollinger_hband( )
-df2['BBL' ]=bb2.bollinger_lband( )
-df2['MA20']=df2['Close'].rolling  (window=20).mean( )
-fig2=make_subplots(rows=2, cols=1, shared_xaxes=True,
-                   vertical_spacing =    .05 ,
-                   subplot_titles   =('Price','Volume'),
-                   row_width        =[.25,.75])
-fig2.add_trace(go.Candlestick(x     =df2['Date'  ],
-                              open  =df2['Open'  ],
-                              high  =df2['High'  ],
-                              low   =df2['Low'   ],
-                              close =df2['Close' ],
-                              name  =    'CandleStick',
-                              increasing_line_color='#00FF00',
-                              decreasing_line_color='#FFA500'),
-               row                  =  1, col = 1)
-fig2.add_trace(go.Scatter(x         =df2['Date'  ],
-                          y         =df2['BBH'   ],
-                          mode      =    'lines'  ,
-                          line      ={'width':1.5,'color':'#00FF00'},
-                          name      =    'BBH   – Bollinger Higher Band'),
-                          row       =  1, col = 1)
-fig2.add_trace(go.Scatter(x         =df2['Date'  ],
-                          y         =df2['MA20'  ],
-                          mode      =    'lines'  ,
-                          line      ={'width':1.5,'color':'#00BFFF'},
-                          name      =    'MA20 – Moving Average 20 Days'),
-                          row       =  1, col  =1)
-fig2.add_trace(go.Scatter(x         =df2['Date'  ],
-                          y         =df2['BBL'   ],
-                          mode      =    'lines'  ,
-                          line      ={'width':1.5,'color':'#FFA500'},
-                          name      =    'BBL    – Bollinger Lower Band'),
-                          row       =  1, col = 1)
-fig2.add_trace(go.Bar(x             =df2['Date'  ],
-                      y             =df2['Volume'],
-                      marker_color  =   '#00BFFF' ,
-                      name          =    'Volume'),
-               row                  =  2, col = 1)
-fig2.update_layout(xaxis_rangeslider_visible  =False,
-                   width            = 1250 ,  height=750)
-st.plotly_chart(fig2, key='Chart2', theme='streamlit') # use_container_width=True
 st.divider     (    )
