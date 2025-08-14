@@ -15,8 +15,8 @@ st.sidebar.success  ('Stock Analysis'     )
 st.sidebar.divider  (                     )
 stock      =st.sidebar.text_input('B3 Ticker','FESA4')
 SideBarInfo=st.sidebar.empty     (                   )
-Start      =(date.today(  )-timedelta ( days =  365) )
-End        =(date.today(  )-timedelta ( days =   1 ) )
+Start      =(date.today(  )-timedelta ( days = 4000) )
+End        =(date.today(  )-timedelta ( days = 1   ) )
 start      =st.sidebar.date_input(label='start', value=Start, format='YYYY.MM.DD')
 end        =st.sidebar.date_input(label= 'end' , value= End , format='YYYY.MM.DD')
 @st.cache_data
@@ -60,7 +60,7 @@ st.divider  (                 )
 def StockChart(df, ticker, key):
     '''Generates & Displays Plotly Chart for Given Stock.'''
     st.divider ( )
-    st.markdown(f'🔘 **{ticker}**')
+    st.markdown(f'📈 **{ticker}**')
     # Indicators:
     df['MA20']=df['Close'].rolling(window=20).mean( )
     # SubPlots:
