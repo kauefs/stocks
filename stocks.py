@@ -55,6 +55,8 @@ st.sidebar.markdown('''
 [![LinkedIn    ](https://img.shields.io/badge/in-0077B5?logo=linkedin&logoColor=FFFFFF)](https://www.linkedin.com/in/kauefs/)
 [![Python      ](https://img.shields.io/badge/3-646464?logo=python&logoColor=FFDE57&labelColor=4584B6)](https://www.python.org/)
 
+![2025.08.15   ](https://img.shields.io/badge/2025.08.15-000000)
+
 [![ƊⱭȾɅViƧi🧿Ƞ](https://img.shields.io/badge/ƊⱭȾɅViƧi🧿Ƞ&trade;-0065FF?style=plastic&logoColor=0065FF&label=&copy;2025&labelColor=0065FF)](https://datavision.one/)
                     ''')
 # MAIN:
@@ -90,8 +92,8 @@ def StockChart(df, ticker, key):
     fig.update_layout(xaxis_rangeslider_visible=False, width=1250, height=750)
     st.plotly_chart(fig,  key=chart_key, use_container_width=True)
 # Generating Charts for Each Stock:
-if not df1.empty:create_stock_chart(df1, stock1,'Chart1')
-if not df2.empty:create_stock_chart(df2, stock2,'Chart2')
+if not df1.empty:StockChart(df1, stock1,'Chart1')
+if not df2.empty:StockChart(df2, stock2,'Chart2')
 st.divider     (    )
 
 st.markdown (f'''📈 **{stock1}**''')
