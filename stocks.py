@@ -24,15 +24,18 @@ start          =st.sidebar.date_input(label='start', value=Start, format='YYYY.M
 end            =st.sidebar.date_input(label= 'end' , value= End , format='YYYY.MM.DD')
 @st.cache_data
 def LoadData(ticker, start, end):
-    '''DownLoads Stock Data from yFinance for a Single Ticker.'''
+    '''DownLoad Stocks Data from yFinance for a Single Ticker.'''
     try:
+        if not ticker:return pd.DataFrame( )
         # Append '.SA' for Brazilian (B3) Stocks:
-        stock= f'{ticker}.SA'
-        df   =yf.download(stock, start=start, end=end, prepost=False, auto_adjust=False, actions=False, rounding=True, multi_level_index=False)
-        df.reset_index(inplace=True)
-        df['Date']=pd.to_datetime(df['Date'], format='%Y-%m-%d').dt.date
+        B3= f'{ticker}.SA'
+        df            =yf.download(  B3 , start=start, end=end, prepost=False, auto_adjust=False, actions=False, rounding=True, multi_level_index=False)
+        if df.empty:df=yf.download(stock, start=start, end=end, prepost=False, auto_adjust=False, actions=False, rounding=True, multi_level_index=False)
         # Check if DataFrame is Empty Before Processing:
-        if not df.empty:df=df[['Date','Open','High','Low','Close','Volume']].dropna( )
+        if not df.empty:
+            df.reset_index(inplace=True)
+            df['Date']=pd.to_datetime(df['Date'], format='%Y-%m-%d').dt.date
+            df=df[['Date','Open','High','Low','Close','Volume']].dropna( )
         return df
     except Exception as e:
         st.error(f'Error Fetching Data for {ticker}: {e}')
