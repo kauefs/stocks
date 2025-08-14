@@ -90,10 +90,10 @@ def StockChart(df, ticker, key):
     fig.add_trace(go.Bar(x=df['Date'], y=df['Volume'], name='Volume', marker_color=marker_color), row=2, col=1)
     # LayOut UpDate:
     fig.update_layout(xaxis_rangeslider_visible=False, width=1250, height=750)
-    st.plotly_chart(fig,  key=chart_key, use_container_width=True)
+    st.plotly_chart(fig,  key=key, use_container_width=True)
 # Generating Charts for Each Stock:
-if not df1.empty:StockChart(df1, stock1,'Chart1')
-if not df2.empty:StockChart(df2, stock2,'Chart2')
+if not df1.empty:StockChart(df1, stock1, 'Chart1')
+if not df2.empty:StockChart(df2, stock2, 'Chart2')
 st.divider     (    )
 
 st.markdown (f'''📈 **{stock1}**''')
