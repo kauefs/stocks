@@ -81,7 +81,7 @@ fig1.add_trace(go.Candlestick(x     =df1['Date'  ],
                               name  =    'CandleStick'),
                               increasing_line_color='#4CAF50',
                               decreasing_line_color='#FF4500'),
-               row                  =  1, col = 1)
+                              row   =  1, col = 1)
 fig1.add_trace(go.Scatter(x         =df1['Date'  ],
                           y         =df1['BBH'   ],
                           mode      =    'lines'  ,
@@ -125,7 +125,7 @@ fig2.add_trace(go.Candlestick(x     =df2['Date'  ],
                               low   =df2['Low'   ],
                               close =df2['Close' ],
                               name  =    'CandleStick'),
-               row                  =  1, col = 1)
+                              row   =  1, col = 1)
 fig2.add_trace(go.Scatter(x         =df2['Date'  ],
                           y         =df2['BBH'   ],
                           mode      =    'lines'  ,
