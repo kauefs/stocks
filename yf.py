@@ -10,13 +10,13 @@ st.set_page_config(page_title='Stocks', page_icon='📊', layout='wide', initial
 st.sidebar.title    ('ƊⱭȾɅViƧi🧿Ƞ&trade;')
 st.sidebar.divider  (                     )
 st.sidebar.header   ('Stocks'             )
-st.sidebar.subheader('Data Analysis'      )
-st.sidebar.success  ('Comparisson Charts' )
+st.sidebar.subheader( 'Data Analysis'     )
+st.sidebar.success  ('Stock Analysis'     )
 st.sidebar.divider  (                     )
-stock      =st.sidebar.text_input('B3 Ticker','BBAS3')
-SideBarInfo=st.sidebar.empty     (                  )
-Start      =(date.today(  )-timedelta ( days = 365) )
-End        =(date.today(  )-timedelta ( days =  1 ) )
+stock      =st.sidebar.text_input('B3 Ticker','FESA4')
+SideBarInfo=st.sidebar.empty     (                   )
+Start      =(date.today(  )-timedelta ( days =  365) )
+End        =(date.today(  )-timedelta ( days =   1 ) )
 start      =st.sidebar.date_input(label='start', value=Start, format='YYYY.MM.DD')
 end        =st.sidebar.date_input(label= 'end' , value= End , format='YYYY.MM.DD')
 @st.cache_data
@@ -77,36 +77,4 @@ def StockChart(df, ticker, key):
     st .plotly_chart (fig, key=key, use_container_width =True)
 # Generating Charts for Each Stock:
 if not df.empty:StockChart(df, stock, 'Chart')
-st.divider     (    )
-
-
-# MAIN:
-# start ='2025-08-01'
-# end   =date.today( ).strftime('%Y-%m-%d')
-# stocks=st.multiselect('Select Stock Ticker',['VALE3','PETR4','BBAS3','BBSE3','ITUB3'], default=['VALE3'])
-# st.sidebar.divider (     )
-# st.warning('Stock Analysis')
-# st.sidebar.divider (     )
-# @st.cache_data
-# def LoadData               (ticker):
-#     '''DownLoads Stocks Data from yFinance'''
-#     if not ticker: return None
-#     stock=[f'{ticker}.SA']
-#     df   = yf .download(stock, start=start, end=end, auto_adjust=True, rounding=True)
-#     if df.empty  : return None
-#     df        .reset_index(inplace=True )
-#     df['Date']=pd.to_datetime(df ['Date'], format='%Y-%m-%d').dt.date
-#     df   = df[['Date','Open','High','Low','Close','Volume']].dropna( )
-#     return df
-# with st.spinner('Loading Data…'):df=LoadData(ticker)
-# if   df is not None:
-#     st.subheader('Raw Data')
-#     st.dataframe(df.tail( ))
-#     SideBarInfo.info((f'{len(df)} entries for {ticker}'))
-#     high=go.Scatter (x=df.index, y=df.High, mode='lines', line={'width':2,'color':'#00FFFF'}, name='High')
-#     low =go.Scatter (x=df.index, y=df.Low , mode='lines', line={'width':2,'color':'#808080'}, name='Low' )
-#     fig =go.Figure(data=[ high , low])
-#     fig.update_layout(xaxis_rangeslider_visible=False, title=  f'{ticker} High & Low Prices')
-#     st.plotly_chart (fig, use_container_width  = True, theme=   'streamlit'                 )
-# else:st.warning     ('No Data Found for Selected Ticker.')
-# st.divider          (                                    )
+st.divider    ( )
