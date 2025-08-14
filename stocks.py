@@ -63,6 +63,37 @@ st.title    ('STOCKS'               )
 st.divider  (                       )
 st.warning  ('Comparisson Charts'   )
 st.divider  (                       )
+def StockChart(df, ticker, key):
+    '''Generates & Displays Plotly Chart for Given Stock.'''
+    st.divider ( )
+    st.markdown(f'🔘 **{ticker}**')
+    # Indicators:
+    bb=BollingerBands(close=df['Close'], window=20, window_dev=2)
+    df['BBH' ]=bb.bollinger_hband()
+    df['BBL' ]=bb.bollinger_lband()
+    df['MA20']=df['Close'].rolling(window=20).mean()
+    # SubPlots:
+    fig=make_subplots(rows=2, cols=1, shared_xaxes=True, vertical_spacing=.05,
+                      subplot_titles=('Price', 'Volume'), row_width=[.25, .75])
+    # CandleStick:
+    fig.add_trace(go.Candlestick(x=df['Date'], open=df['Open'], high=df['High'], low=df['Low'], close=df['Close'],
+                                 name='CandleStick', increasing_line_color='#00FF00', decreasing_line_color='#FFA500'),
+                  row=1, col=1)
+    # Traces:
+    fig.add_trace(go.Scatter(x=df['Date'], y=df['BBH' ], mode='lines', line={'width':1.5,'color':'#00FF00'}, name='BBH  – Bollinger Higher Band' ), row=1, col=1)
+    fig.add_trace(go.Scatter(x=df['Date'], y=df['MA20'], mode='lines', line={'width':1.5,'color':'#00BFFF'}, name='MA20 – Moving Average 20 Days'), row=1, col=1)
+    fig.add_trace(go.Scatter(x=df['Date'], y=df['BBL' ], mode='lines', line={'width':1.5,'color':'#FFA500'}, name='BBL   – Bollinger Lower Band' ), row=1, col=1)
+    # Volume Bars:
+    marker_color=['#00FF00' if close > open else '#FFA500' for open, close in zip(df['Open'], df['Close'])]
+    fig.add_trace(go.Bar(x=df['Date'], y=df['Volume'], name='Volume', marker_color=volume_colors), row=2, col=1)
+    # LayOut UpDate:
+    fig.update_layout(xaxis_rangeslider_visible=False, width=1250, height=750)
+    st.plotly_chart(fig,  key=chart_key, use_container_width=True)
+# Generating Charts for Each Stock:
+if not df1.empty:create_stock_chart(df1, stock1_ticker, 'Chart1')
+if not df2.empty:create_stock_chart(df2, stock2_ticker, 'Chart2')
+st.divider     (    )
+
 st.markdown (f'''📈 **{stock1}**''')
 close1=df1['Close']=df1['Close'].squeeze( )
 bb1= BollingerBands(close=close1,  window=20, window_dev=2)
