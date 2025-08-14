@@ -65,86 +65,81 @@ st.warning  ('Comparisson Charts'   )
 st.divider  (                       )
 st.markdown (f'''📈 **{stock1}**''')
 close1=df1['Close']=df1['Close'].squeeze( )
-bb1= BollingerBands(close=close1, window=15, window_dev=2)
+bb1= BollingerBands(close=close1,  window=15, window_dev=2)
 df1['BBH' ]=bb1.bollinger_hband( )
 df1['BBL' ]=bb1.bollinger_lband( )
-df1['MA15']=df1['Close'].rolling (window=15).mean( )
+df1['MA15']=df1['Close'].rolling  (window=15).mean( )
 fig1=make_subplots(rows=2, cols=1, shared_xaxes=True,
-                   vertical_spacing=    .05 ,
-                   subplot_titles  =('Price','Volume'),
-                   row_width       =[.25,.75])
-fig1.add_trace(go.Candlestick(x    =df1['Date'  ],
-                              open =df1['Open'  ],
-                              high =df1['High'  ],
-                              low  =df1['Low'   ],
-                              close=df1['Close' ],
-                              name =    'CandleStick'),
-                              row  =  1, col = 1)
-fig1.add_trace(go.Scatter(x        =df1['Date'  ],
-                          y        =df1['BBH'   ],
-                          mode     =    'lines'  ,
-                          name     =    'BBH – Bollinger Higher Band'),
-                          row      =  1, col =1 )
-fig1.add_trace(go.Scatter(x        =df1['Date'  ],
-                          y        =df1['MA15'  ],
-                          mode     =    'lines'  ,
-                          name     =    'MA15 – Moving Average 15 Days'),
-                          row      =  1, col  =1)
-fig1.add_trace(go.Scatter(x        =df1['Date'  ],
-                          y        =df1['BBL'   ],
-                          mode     =    'lines'  ,
-                          name     =    'BBL – Bollinger Lower Band'),
-                          row      =  1, col =1 )
-fig1.add_trace(go.Bar(x            =df1['Date'  ],
-                      y            =df1['Volume'],
-                      name         =    'Volume'),
-                      row           =  2, col =1 )
-fig1.update_layout(xaxis_rangeslider_visible= False,
-                   width            = 1000 , height=750)
-st.plotly_chart(fig1, key='Chart1', theme='streamlit',
-               #use_container_width=True
-               )
+                   vertical_spacing =    .05 ,
+                   subplot_titles   =('Price','Volume'),
+                   row_width        =[.25,.75])
+fig1.add_trace(go.Candlestick(x     =df1['Date'  ],
+                              open  =df1['Open'  ],
+                              high  =df1['High'  ],
+                              low   =df1['Low'   ],
+                              close =df1['Close' ],
+                              name  =    'CandleStick'),
+                              row   =  1, col = 1)
+fig1.add_trace(go.Scatter(x         =df1['Date'  ],
+                          y         =df1['BBH'   ],
+                          mode      =    'lines'  ,
+                          name      =    'BBH – Bollinger Higher Band'),
+                          row       =  1, col =1 )
+fig1.add_trace(go.Scatter(x         =df1['Date'  ],
+                          y         =df1['MA15'  ],
+                          mode      =    'lines'  ,
+                          name      =    'MA15 – Moving Average 15 Days'),
+                          row       =  1, col  =1)
+fig1.add_trace(go.Scatter(x         =df1['Date'  ],
+                          y         =df1['BBL'   ],
+                          mode      =    'lines'  ,
+                          name      =    'BBL – Bollinger Lower Band'),
+                          row       =  1, col =1 )
+fig1.add_trace(go.Bar(x             =df1['Date'  ],
+                      y             =df1['Volume'],
+                      name          =    'Volume'),
+                      row           =  2, col = 1)
+fig1.update_layout(xaxis_rangeslider_visible  =False,
+                   width            = 1250 ,  height=750)
+st.plotly_chart(fig1, key='Chart1', theme='streamlit') # use_container_width=True
 st.divider     (    )
 st.markdown(f'''📉 **{stock2}**''')
 close2=df2['Close']=df2['Close'].squeeze( )
-bb2= BollingerBands(close=close2, window=15, window_dev=2)
+bb2= BollingerBands(close=close2,  window=15, window_dev=2)
 df2['BBH' ]=bb2.bollinger_hband( )
 df2['BBL' ]=bb2.bollinger_lband( )
-df2['MA15']=df2['Close'].rolling (window=15).mean( )
+df2['MA15']=df2['Close'].rolling  (window=15).mean( )
 fig2=make_subplots(rows=2, cols=1, shared_xaxes=True,
-                   vertical_spacing=    .05 ,
-                   subplot_titles  =('Price','Volume'),
-                   row_width       =[.25,.75])
-fig2.add_trace(go.Candlestick(x    =df2['Date'  ],
-                              open =df2['Open'  ],
-                              high =df2['High'  ],
-                              low  =df2['Low'   ],
-                              close=df2['Close' ],
-                              name =    'CandleStick'),
-                              row  =  1, col = 1)
-fig2.add_trace(go.Scatter(x        =df2['Date'  ],
-                          y        =df2['BBH'   ],
-                          mode     =    'lines'  ,
-                          name     =    'BBH – Bollinger Higher Band'),
-                          row      =  1, col = 1)
-fig2.add_trace(go.Scatter(x        =df2['Date'  ],
-                          y        =df2['MA15'  ],
-                          mode     =    'lines'  ,
-                          name     =    'MA15 – Moving Average 15 Days'),
-                          row      =  1, col  =1)
-fig2.add_trace(go.Scatter(x        =df2['Date'  ],
-                          y        =df2['BBL'   ],
-                          mode     =    'lines'  ,
-                          name     =    'BBL – Bollinger Lower Band'),
-                          row      =  1, col = 1)
-fig2.add_trace(go.Bar(x            =df2['Date'  ],
-                      y            =df2['Volume'],
-                      name         =    'Volume'),
-                      row          =  2, col = 1)
-fig2.update_layout(xaxis_rangeslider_visible= False,
-                  #width            = 1000 , height=555
-                  )
-st.plotly_chart(fig2, key='Chart2', theme='streamlit',
-               #use_container_width=True
-               )
+                   vertical_spacing =    .05 ,
+                   subplot_titles   =('Price','Volume'),
+                   row_width        =[.25,.75])
+fig2.add_trace(go.Candlestick(x     =df2['Date'  ],
+                              open  =df2['Open'  ],
+                              high  =df2['High'  ],
+                              low   =df2['Low'   ],
+                              close =df2['Close' ],
+                              name  =    'CandleStick'),
+                              row   =  1, col = 1)
+fig2.add_trace(go.Scatter(x         =df2['Date'  ],
+                          y         =df2['BBH'   ],
+                          mode      =    'lines'  ,
+                          name      =    'BBH – Bollinger Higher Band'),
+                          row       =  1, col = 1)
+fig2.add_trace(go.Scatter(x         =df2['Date'  ],
+                          y         =df2['MA15'  ],
+                          mode      =    'lines'  ,
+                          name      =    'MA15 – Moving Average 15 Days'),
+                          row       =  1, col  =1)
+fig2.add_trace(go.Scatter(x         =df2['Date'  ],
+                          y         =df2['BBL'   ],
+                          mode      =    'lines'  ,
+                          name      =    'BBL – Bollinger Lower Band'),
+                          row       =  1, col = 1)
+fig2.add_trace(go.Bar(x             =df2['Date'  ],
+                      y             =df2['Volume'],
+                      name          =    'Volume'),
+                      row           =  2, col = 1)
+fig2.update_layout(xaxis_rangeslider_visible  =False,
+                   width            = 1250 ,  height=750)
+st.plotly_chart(fig2, key='Chart2', theme='streamlit') # use_container_width=True
 st.divider     (    )
