@@ -87,7 +87,7 @@ def StockChart(df, ticker, key):
     fig.add_trace(go.Scatter(x=df['Date'], y=df['BBL' ], mode='lines', line={'width':1.5,'color':'#FFA500'}, name='BBL   – Bollinger Lower Band' ), row=1, col=1)
     # Volume Bars:
     marker_color=['#00FF00' if close > open else '#FFA500' for open, close in zip(df['Open'], df['Close'])]
-    fig.add_trace(go.Bar(x=df['Date'], y=df['Volume'], name='Volume', marker_color=volume_colors), row=2, col=1)
+    fig.add_trace(go.Bar(x=df['Date'], y=df['Volume'], name='Volume', marker_color=marker_color), row=2, col=1)
     # LayOut UpDate:
     fig.update_layout(xaxis_rangeslider_visible=False, width=1250, height=750)
     st.plotly_chart(fig,  key=chart_key, use_container_width=True)
