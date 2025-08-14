@@ -26,8 +26,8 @@ end            =st.sidebar.date_input(label= 'end' , value= End , format='YYYY.M
 def LoadData(ticker, start, end):
     '''DownLoad Stocks Data from yFinance for a Single Ticker.'''
     try:
-        if not ticker:return pd.DataFrame( )
-        # Append '.SA' for Brazilian (B3) Stocks:
+        if not ticker:return pd.DataFrame(  )
+        # Appending  '.SA' for Brazilian (B3)    Stocks:
         B3= f'{ticker}.SA'
         df            =yf.download(  B3  , start=start, end=end, prepost=False, auto_adjust=False, actions=False, rounding=True, multi_level_index=False)
         if df.empty:df=yf.download(ticker, start=start, end=end, prepost=False, auto_adjust=False, actions=False, rounding=True, multi_level_index=False)
@@ -41,11 +41,11 @@ def LoadData(ticker, start, end):
         st.error(f'Error Fetching Data for {ticker}: {e}')
         return pd.DataFrame( ) # Return Empty DataFrame on Error
 with st.spinner('Loading Data…'):df1=LoadData(stock1, start, end)
-if  df1 is not None and not df1.empty:SideBarInfo1.info('{} entries for {}'.format(df1.shape[0], stock1))
-else                                 :SideBarInfo1.warning(f'No Data Found for {stock1}.')
+if  df1 is  not  None and not    df1.empty:SideBarInfo1.info('{} entries for {}'.format(df1.shape[0], stock1))
+else                                      :SideBarInfo1.warning(f'No Data Found for {stock1}')
 with st.spinner('Loading Data…'):df2=LoadData(stock2, start, end)
-if  df2 is not None and not df2.empty:SideBarInfo2.info('{} entries for {}'.format(df2.shape[0], stock2))
-else                                 :SideBarInfo2.warning(f'No Data Found for {stock2}.')
+if  df2 is  not  None and not    df2.empty:SideBarInfo2.info('{} entries for {}'.format(df2.shape[0], stock2))
+else                                      :SideBarInfo2.warning(f'No Data Found for {stock2}')
 st.sidebar.divider (                                                        )
 st.sidebar.markdown('''Data from [Yahoo! Finance](https://finance.yahoo.com/)''')
 st.sidebar.markdown('''
@@ -89,7 +89,7 @@ def StockChart(df, ticker, key):
     fig.add_trace(go.Scatter(x=df['Date'], y=df['MA20'], mode='lines', line={'width':1.75,'color':'#FF00FF'}, name='MA20 – Moving Average 20 Days'), row=1, col=1)
     fig.add_trace(go.Scatter(x=df['Date'], y=df['BBL' ], mode='lines', line={'width':1.50,'color':'#FFA500'}, name='BBL    – Bollinger Lower Band'), row=1, col=1)
     # Volume Bars:
-    marker_color=['#00FF00' if close > open else '#FFA500' for open, close in zip(df['Open'], df['Close'])]
+    marker_color=['#00FF00' if close > open else '#FFA500' for open , close  in zip(  df['Open'], df['Close'])]
     fig.add_trace(go.Bar(x=df['Date'], y=df['Volume'], name='Volume', marker_color=marker_color), row=2, col=1)
     # LayOut UpDate:
     fig.update_layout(xaxis_rangeslider_visible  =False, width=1250, height=750)
