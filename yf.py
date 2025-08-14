@@ -38,8 +38,8 @@ def LoadData(ticker, start, end):
         st.error(f'Error Fetching Data for {ticker}: {e}')
         return pd.DataFrame( ) # Return Empty DataFrame on Error
 with st.spinner('Loading Data…'):df=LoadData(stock, start, end)
-if   df is  not None and not     df.empty:SideBarInfo.info('{} entries for {}'.format(df.shape[0], stock))
-else                                     :SideBarInfo.warning(f'No Data Found for {stock}.')
+if   df is  not None and not     df.empty:SideBarInfo.info ('{} entries for {}'.format(df.shape[0], stock))
+else                                     :SideBarInfo.warning(f'No Data Found for {stock}')
 st.sidebar.divider (                                                        )
 st.sidebar.markdown('''Data from [Yahoo! Finance](https://finance.yahoo.com/)''')
 st.sidebar.markdown('''
