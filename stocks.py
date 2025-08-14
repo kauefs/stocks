@@ -14,18 +14,14 @@ st.sidebar.header   ('Stocks'             )
 st.sidebar.subheader('Data Analysis'      )
 st.sidebar.success  ('Comparisson Charts' )
 st.sidebar.divider  (                     )
-
-stock1         =st.sidebar.text_input('Stock Ticker 1','BBAS3')
-SideBarInfo1   =st.sidebar.empty     (                        )
-
-stock2         =st.sidebar.text_input('Stock Ticker 2','BBSE3')
-SideBarInfo2   =st.sidebar.empty     (                        )
-
-Start          =(date.today(  )-timedelta(days=150))
-End            =(date.today(  )-timedelta(days=  1))
+stock1         =st.sidebar.text_input('Ticker 1','BBAS3')
+SideBarInfo1   =st.sidebar.empty     (                  )
+stock2         =st.sidebar.text_input('Ticker 2','BBSE3')
+SideBarInfo2   =st.sidebar.empty     (                  )
+Start          =(date.today(  )-timedelta ( days = 150) )
+End            =(date.today(  )-timedelta ( days =  1 ) )
 start          =st.sidebar.date_input(label='start', value=Start, format='YYYY.MM.DD')
 end            =st.sidebar.date_input(label= 'end' , value= End , format='YYYY.MM.DD')
-
 @st.cache_data
 def LoadData(ticker):
     '''DownLoads Stock Data from yFinance for a Single Ticker.'''
@@ -47,9 +43,8 @@ else                                 :SideBarInfo1.warning(f'No Data Found for {
 with st.spinner('Loading Data…'):df2=LoadData(stock2)
 if  df2 is not None and not df2.empty:SideBarInfo2.info('{} entries for {}'.format(df2.shape[0], stock2))
 else                                 :SideBarInfo2.warning(f'No Data Found for {stock2}.')
-
 st.sidebar.divider (                                                        )
-st.sidebar.markdown('''Data: [Yahoo! Finance](https://finance.yahoo.com/)''')
+st.sidebar.markdown('''Data from [Yahoo! Finance](https://finance.yahoo.com/)''')
 st.sidebar.markdown('''
 ![2024.04.01   ](https://img.shields.io/badge/2024.04.01-000000)
 
@@ -66,10 +61,9 @@ st.sidebar.markdown('''
 st.divider  (                       )
 st.title    ('STOCKS'               )
 st.divider  (                       )
-st.subheader('Comparisson Charts'   )
+st.warning  ('Comparisson Charts'   )
 st.divider  (                       )
-
-st.markdown (f'''📈 **{stock1}**:''')
+st.markdown (f'''📈 **{stock1}**''')
 close1=df1['Close']=df1['Close'].squeeze( )
 bb1= BollingerBands(close=close1, window=15, window_dev=2)
 df1['BBH' ]=bb1.bollinger_hband( )
@@ -109,8 +103,7 @@ fig1.update_layout(xaxis_rangeslider_visible= False,
                    width            = 1000 , height=555)
 st.plotly_chart(fig1, key='Chart1', theme='streamlit')
 st.divider     (                      )
-
-st.markdown(f'''📉 **{stock2}**:''')
+st.markdown(f'''📉 **{stock2}**''')
 close2=df2['Close']=df2['Close'].squeeze( )
 bb2= BollingerBands(close=close2, window=15, window_dev=2)
 df2['BBH' ]=bb2.bollinger_hband( )
