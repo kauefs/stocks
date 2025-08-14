@@ -100,9 +100,10 @@ fig1.add_trace(go.Bar(x            =df1['Date'  ],
                       name         =    'Volume'),
                       row           =  2, col =1 )
 fig1.update_layout(xaxis_rangeslider_visible= False,
-                  #width            = 1000 , height=555
-                  )
-st.plotly_chart(fig1, key='Chart1', theme='streamlit', use_container_width=True)
+                   width            = 1000 , height=750)
+st.plotly_chart(fig1, key='Chart1', theme='streamlit',
+               #use_container_width=True
+               )
 st.divider     (    )
 st.markdown(f'''📉 **{stock2}**''')
 close2=df2['Close']=df2['Close'].squeeze( )
@@ -143,5 +144,7 @@ fig2.add_trace(go.Bar(x            =df2['Date'  ],
 fig2.update_layout(xaxis_rangeslider_visible= False,
                   #width            = 1000 , height=555
                   )
-st.plotly_chart(fig2, key='Chart2', theme='streamlit', use_container_width=True)
+st.plotly_chart(fig2, key='Chart2', theme='streamlit',
+               #use_container_width=True
+               )
 st.divider     (    )
