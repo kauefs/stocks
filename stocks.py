@@ -83,7 +83,7 @@ def StockChart(df, ticker, key):
                   row=1, col=1)
     # Traces:
     fig.add_trace(go.Scatter(x=df['Date'], y=df['BBH' ], mode='lines', line={'width':1.50,'color':'#00FF00'}, name='BBH   – Bollinger Higher Band'), row=1, col=1)
-    fig.add_trace(go.Scatter(x=df['Date'], y=df['MA20'], mode='lines', line={'width':1.75,'color':'#800000'}, name='MA20 – Moving Average 20 Days'), row=1, col=1)
+    fig.add_trace(go.Scatter(x=df['Date'], y=df['MA20'], mode='lines', line={'width':1.75,'color':'#C0C0C0'}, name='MA20 – Moving Average 20 Days'), row=1, col=1)
     fig.add_trace(go.Scatter(x=df['Date'], y=df['BBL' ], mode='lines', line={'width':1.50,'color':'#FFA500'}, name='BBL    – Bollinger Lower Band'), row=1, col=1)
     # Volume Bars:
     marker_color=['#00FF00' if close > open else '#FFA500' for open, close in zip(df['Open'], df['Close'])]
