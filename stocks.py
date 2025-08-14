@@ -90,8 +90,8 @@ def StockChart(df, ticker, key):
     fig.update_layout(xaxis_rangeslider_visible=False, width=1250, height=750)
     st.plotly_chart(fig,  key=chart_key, use_container_width=True)
 # Generating Charts for Each Stock:
-if not df1.empty:create_stock_chart(df1, stock1_ticker, 'Chart1')
-if not df2.empty:create_stock_chart(df2, stock2_ticker, 'Chart2')
+if not df1.empty:create_stock_chart(df1, stock1,'Chart1')
+if not df2.empty:create_stock_chart(df2, stock2,'Chart2')
 st.divider     (    )
 
 st.markdown (f'''📈 **{stock1}**''')
