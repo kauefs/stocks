@@ -7,6 +7,7 @@ pandas_datareader
 pandas_profiling
 matplotlib
 seaborn
+pydeck
 plotly
 altair
 yfinance
@@ -16,3 +17,4 @@ prophet
 scikit-learn
 tensorflow
 streamlit<1.42.0
+streamlit_folium
