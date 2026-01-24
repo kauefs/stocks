@@ -77,7 +77,7 @@ def StockChart(df, ticker, key):
     fig.add_trace(go.Bar(x=df['Date'], y=df['Volume'], name='Volume', marker_color=marker_color), row=2, col=1)
     # LayOut UpDate:
     fig.update_layout(xaxis_rangeslider_visible  =False, width=1250, height=750)
-    st .plotly_chart (fig, key=key, use_container_width =True)
+    st .plotly_chart (fig, key=key, width='stretch')
 # Generating Charts for Each Stock:
 if not df.empty:StockChart(df, stock, 'Chart')
 st.divider    ( )
