@@ -2,7 +2,7 @@
 
 [global]
 
-disableWidgetStateDuplicationWarning =  false
+disableWidgetStateDuplicationWarning = false
 showWarningOnDirectExecution         =  true
 
 [logger]
@@ -20,25 +20,24 @@ showSidebarNavigation                =  true
 
 magicEnabled                         =  true
 fastReruns                           =  true
-enforceSerializableSessionState      =  false
+enforceSerializableSessionState      = false
 enumCoercion                         = 'nameOnly'
 
 [server]
 
 fileWatcherType                      = 'auto'
-cookieSecret                         =  false
 runOnSave                            =  true
 enableCORS                           =  true
 enableXsrfProtection                 =  true
 maxUploadSize                        =  200
 maxMessageSize                       =  200
-enableWebsocketCompression           =  false
-enableStaticServing                  =  false
+enableWebsocketCompression           = false
+enableStaticServing                  = false
 disconnectedSessionTTL               =  120
 
 [browser]
 
-gatherUsageStats                     =  false
+gatherUsageStats                     = false
 
 [theme]
 
