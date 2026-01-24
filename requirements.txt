@@ -9,13 +9,13 @@ matplotlib
 seaborn
 pydeck
 plotly
-altair
+altair<5
 yfinance
 mplfinance
 datetime
 prophet
 scikit-learn
 tensorflow
-streamlit==1.41.0
+streamlit>1.49.0
 streamlit_folium
 streamlit_image_coordinates
