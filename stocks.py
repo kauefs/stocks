@@ -85,15 +85,15 @@ def StockChart(df, ticker, key):
                                  name='CandleStick', increasing_line_color='#C0C0C0', decreasing_line_color='#808080'),
                   row=1, col=1)
     # Traces:
-    fig.add_trace(go.Scatter(x=df['Date'], y=df['BBH' ], mode='lines', line={'width':1.50,'color':'#00FF00'}, name='BBH   – Bollinger Higher Band'), row=1, col=1)
+    fig.add_trace(go.Scatter(x=df['Date'], y=df['BBH' ], mode='lines', line={'width':1.50,'color':'#00FF00'}, name='BBH  –  Bollinger Higher Band'), row=1, col=1)
     fig.add_trace(go.Scatter(x=df['Date'], y=df['MA20'], mode='lines', line={'width':1.75,'color':'#FF00FF'}, name='MA20 – Moving Average 20 Days'), row=1, col=1)
-    fig.add_trace(go.Scatter(x=df['Date'], y=df['BBL' ], mode='lines', line={'width':1.50,'color':'#FFA500'}, name='BBL    – Bollinger Lower Band'), row=1, col=1)
+    fig.add_trace(go.Scatter(x=df['Date'], y=df['BBL' ], mode='lines', line={'width':1.50,'color':'#FFA500'}, name='BBL  –  Bollinger  Lower Band'), row=1, col=1)
     # Volume Bars:
     marker_color=['#00FF00' if close > open else '#FFA500' for open , close  in zip(  df['Open'], df['Close'])]
     fig.add_trace(go.Bar(x=df['Date'], y=df['Volume'], name='Volume', marker_color=marker_color), row=2, col=1)
     # LayOut UpDate:
-    fig.update_layout(xaxis_rangeslider_visible  =False, width=1250, height=750)
-    st.plotly_chart(fig,key=key,    use_container_width= True)
+    fig.update_layout(xaxis_rangeslider_visible=False, width=1250, height=750)
+    st.plotly_chart(fig,key=key, width='stretch')
 # Generating Charts for Each Stock:
 if not df1.empty:StockChart(df1, stock1, 'Chart1')
 if not df2.empty:StockChart(df2, stock2, 'Chart2')
