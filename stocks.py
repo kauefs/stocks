@@ -1,4 +1,4 @@
-# Libraries:
+# Libraries
 import pandas                as pd
 import yfinance              as yf
 import streamlit             as st
@@ -7,7 +7,7 @@ from   plotly.subplots   import make_subplots
 from       ta.volatility import BollingerBands
 from          datetime   import date, timedelta
 st.set_page_config(page_title='Stocks', page_icon='📊', layout='wide', initial_sidebar_state='expanded')
-# SIDE:
+# SIDE
 st.sidebar.title    ('ƊⱭȾɅViƧi🧿Ƞ&trade;')
 st.sidebar.divider  (                     )
 st.sidebar.header   ('Stocks'             )
@@ -24,18 +24,21 @@ start          =st.sidebar.date_input(label='start', value=Start, format='YYYY.M
 end            =st.sidebar.date_input(label= 'end' , value= End , format='YYYY.MM.DD')
 @st.cache_data
 def LoadData(ticker, start, end):
-    '''DownLoad Stocks Data from yFinance for a Single Ticker.'''
+    '''DownLoad Stocks Data from Yahoo Finance.'''
     try:
         if not ticker:return pd.DataFrame(  )
-        # Appending  '.SA' for Brazilian (B3)    Stocks:
+        # Append '.SA' for Brazilian (B3) Stocks
         B3= f'{ticker}.SA'
         df            =yf.download(  B3  , start=start, end=end, prepost=False, auto_adjust=False, actions=False, rounding=True, multi_level_index=False)
         if df.empty:df=yf.download(ticker, start=start, end=end, prepost=False, auto_adjust=False, actions=False, rounding=True, multi_level_index=False)
-        # Check if DataFrame is Empty Before Processing:
+        # Check if DataFrame is Empty Before Processing
         if not df.empty:
+            if isinstance(df.columns, pd.MultiIndex):df.columns=df.columns.get_level_values(0)
             df.reset_index(inplace=True)
+            if df.columns[0]!='Date':df.rename(columns={df.columns[0]:'Date'}, inplace=True)
             df['Date']=pd.to_datetime(df['Date'], format='%Y-%m-%d').dt.date
-            df=df[['Date','Open','High','Low','Close','Volume']].dropna( )
+            df=df[['Date','Open','High','Low','Close','Volume']]                              .dropna ( )
+            for col in   ['Open','High','Low','Close','Volume']:df[col]=pd.to_numeric(df[col]).squeeze( )
         return df
     except Exception as e:
         st.error(f'Error Fetching Data for {ticker}: {e}')
@@ -53,6 +56,8 @@ st.sidebar.markdown('''
 
 ![2025.08.15   ](https://img.shields.io/badge/2025.08.15-000000)
 
+![2026.05.23   ](https://img.shields.io/badge/2026.05.23-000000)
+
 [![License     ](https://img.shields.io/badge/Apache--2.0-D22128?&logo=apache&logoColor=CB2138&label=License&labelColor=6D6E71)](https://www.apache.org/licenses/LICENSE-2.0)
 
 [![GitHub      ](https://img.shields.io/badge/-000000?logo=github&logoColor=FFFFFF)](https://github.com/kauefs/)
@@ -60,9 +65,9 @@ st.sidebar.markdown('''
 [![LinkedIn    ](https://img.shields.io/badge/in-0077B5?logo=linkedin&logoColor=FFFFFF)](https://www.linkedin.com/in/kauefs/)
 [![Python      ](https://img.shields.io/badge/3-646464?logo=python&logoColor=FFDE57&labelColor=4584B6)](https://www.python.org/)
 
-[![ƊⱭȾɅViƧi🧿Ƞ](https://img.shields.io/badge/ƊⱭȾɅViƧi🧿Ƞ&trade;-0065FF?style=plastic&logoColor=0065FF&label=&copy;2025&labelColor=0065FF)](https://datavision.one/)
+[![ƊⱭȾɅViƧi🧿Ƞ](https://img.shields.io/badge/ƊⱭȾɅViƧi🧿Ƞ&trade;-0065FF?style=plastic&logoColor=0065FF&label=&copy;2026&labelColor=0065FF)](https://datavision.one/)
                     ''')
-# MAIN:
+# MAIN
 st.divider  (                       )
 st.title    ('STOCKS'               )
 st.divider  (                       )
@@ -72,29 +77,29 @@ def StockChart(df, ticker, key):
     '''Generates & Displays Plotly Chart for Given Stock.'''
     st.divider ( )
     st.markdown(f'🔘 **{ticker}**')
-    # Indicators:
+    # Indicators
     bb=BollingerBands(close=df['Close'], window=20, window_dev=2)
     df['BBH' ]=bb .bollinger_hband                       ( )
     df['BBL' ]=bb .bollinger_lband                       ( )
     df['MA20']=df['Close'].rolling      (window=20).mean ( )
-    # SubPlots:
+    # SubPlots
     fig=make_subplots(rows=2, cols=1, shared_xaxes=True, vertical_spacing=.05,
                       subplot_titles=('Price', 'Volume'), row_width=[.25, .75])
-    # CandleStick:
+    # CandleStick
     fig.add_trace(go.Candlestick(x=df['Date'], open=df['Open'], high=df['High'], low=df['Low'], close=df['Close'],
                                  name='CandleStick', increasing_line_color='#C0C0C0', decreasing_line_color='#808080'),
                   row=1, col=1)
-    # Traces:
+    # Traces
     fig.add_trace(go.Scatter(x=df['Date'], y=df['BBH' ], mode='lines', line={'width':1.50,'color':'#00FF00'}, name='BBH  –  Bollinger Higher Band'), row=1, col=1)
     fig.add_trace(go.Scatter(x=df['Date'], y=df['MA20'], mode='lines', line={'width':1.75,'color':'#FF00FF'}, name='MA20 – Moving Average 20 Days'), row=1, col=1)
     fig.add_trace(go.Scatter(x=df['Date'], y=df['BBL' ], mode='lines', line={'width':1.50,'color':'#FFA500'}, name='BBL  –  Bollinger  Lower Band'), row=1, col=1)
-    # Volume Bars:
+    # Volume Bars
     marker_color=['#00FF00' if close > open else '#FFA500' for open , close  in zip(  df['Open'], df['Close'])]
     fig.add_trace(go.Bar(x=df['Date'], y=df['Volume'], name='Volume', marker_color=marker_color), row=2, col=1)
-    # LayOut UpDate:
+    # LayOut UpDate
     fig.update_layout(xaxis_rangeslider_visible=False, width=1250, height=750)
-    st.plotly_chart(fig,key=key, width='stretch')
-# Generating Charts for Each Stock:
+    st.plotly_chart(fig, key=key, width='stretch')
+# Generate Charts for Each Stock
 if not df1.empty:StockChart(df1, stock1, 'Chart1')
 if not df2.empty:StockChart(df2, stock2, 'Chart2')
 st.divider     (    )
