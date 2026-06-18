@@ -1,4 +1,4 @@
-# Libraries
+# Libraries:
 import pandas                as pd
 import yfinance              as yf
 import streamlit             as st
@@ -7,7 +7,7 @@ from   plotly.subplots   import make_subplots
 from       ta.volatility import BollingerBands
 from          datetime   import date, timedelta
 st.set_page_config(page_title='Stocks', page_icon='📊', layout='wide', initial_sidebar_state='expanded')
-# SIDE
+# SIDE:
 st.sidebar.title    ('ƊⱭȾɅViƧi🧿Ƞ&trade;')
 st.sidebar.divider  (                     )
 st.sidebar.header   ('Stocks'             )
@@ -27,18 +27,18 @@ def LoadData(ticker, start, end):
     '''DownLoad Stocks Data from Yahoo Finance.'''
     try:
         if not ticker:return pd.DataFrame(  )
-        # Append '.SA' for Brazilian (B3) Stocks
+        # Append '.SA' for Brazilian (B3) Stocks:
         B3= f'{ticker}.SA'
         df            =yf.download(  B3  , start=start, end=end, prepost=False, auto_adjust=False, actions=False, rounding=True, multi_level_index=False)
         if df.empty:df=yf.download(ticker, start=start, end=end, prepost=False, auto_adjust=False, actions=False, rounding=True, multi_level_index=False)
-        # Check if DataFrame is Empty Before Processing
+        # Check if DataFrame is Empty Before Processing:
         if not df.empty:
             if isinstance(df.columns, pd.MultiIndex):df.columns=df.columns.get_level_values(0)
             df.reset_index(inplace=True)
             if df.columns[0]!='Date':df.rename(columns={df.columns[0]:'Date'}, inplace=True)
             df['Date']=pd.to_datetime(df['Date'], format='%Y-%m-%d').dt.date
-            df=df[['Date','Open','High','Low','Close','Volume']]                              .dropna ( )
-            for col in   ['Open','High','Low','Close','Volume']:df[col]=pd.to_numeric(df[col]).squeeze( )
+            df=df[['Date','Open','High','Low','Close','Volume']].dropna( )
+            for col in['Open','High','Low','Close','Volume']:df[col]=pd.to_numeric(df[col]).squeeze( )
         return df
     except Exception as e:
         st.error(f'Error Fetching Data for {ticker}: {e}')
@@ -50,7 +50,7 @@ with st.spinner('Loading Data…'):df2=LoadData(stock2, start, end)
 if  df2 is  not  None and not    df2.empty:SideBarInfo2.info('{} entries for {}'.format(df2.shape[0], stock2))
 else                                      :SideBarInfo2.warning(f'No Data Found for {stock2}')
 st.sidebar.divider (                                                        )
-st.sidebar.markdown('''Data from [Yahoo! Finance](https://finance.yahoo.com/)''')
+st.sidebar.markdown('''Data: [Yahoo! Finance](https://finance.yahoo.com/)''')
 st.sidebar.markdown('''
 ![2024.04.01   ](https://img.shields.io/badge/2024.04.01-000000)
 
@@ -67,7 +67,7 @@ st.sidebar.markdown('''
 
 [![ƊⱭȾɅViƧi🧿Ƞ](https://img.shields.io/badge/ƊⱭȾɅViƧi🧿Ƞ&trade;-0065FF?style=plastic&logoColor=0065FF&label=&copy;2026&labelColor=0065FF)](https://datavision.one/)
                     ''')
-# MAIN
+# MAIN:
 st.divider  (                       )
 st.title    ('STOCKS'               )
 st.divider  (                       )
@@ -77,29 +77,57 @@ def StockChart(df, ticker, key):
     '''Generates & Displays Plotly Chart for Given Stock.'''
     st.divider ( )
     st.markdown(f'🔘 **{ticker}**')
-    # Indicators
+    # Indicators:
     bb=BollingerBands(close=df['Close'], window=20, window_dev=2)
     df['BBH' ]=bb .bollinger_hband                       ( )
     df['BBL' ]=bb .bollinger_lband                       ( )
     df['MA20']=df['Close'].rolling      (window=20).mean ( )
-    # SubPlots
+    # SubPlots:
     fig=make_subplots(rows=2, cols=1, shared_xaxes=True, vertical_spacing=.05,
                       subplot_titles=('Price', 'Volume'), row_width=[.25, .75])
-    # CandleStick
+    # CandleStick:
     fig.add_trace(go.Candlestick(x=df['Date'], open=df['Open'], high=df['High'], low=df['Low'], close=df['Close'],
-                                 name='CandleStick', increasing_line_color='#C0C0C0', decreasing_line_color='#808080'),
+                                 name='CandleStick', increasing_line_color='#4CAF50', decreasing_line_color='#FF4500'),
                   row=1, col=1)
-    # Traces
+    # Traces:
     fig.add_trace(go.Scatter(x=df['Date'], y=df['BBH' ], mode='lines', line={'width':1.50,'color':'#00FF00'}, name='BBH  –  Bollinger Higher Band'), row=1, col=1)
-    fig.add_trace(go.Scatter(x=df['Date'], y=df['MA20'], mode='lines', line={'width':1.75,'color':'#FF00FF'}, name='MA20 – Moving Average 20 Days'), row=1, col=1)
+    fig.add_trace(go.Scatter(x=df['Date'], y=df['MA20'], mode='lines', line={'width':1.75,'color':'#FFFF00'}, name='MA20 – Moving Average 20 Days'), row=1, col=1)
     fig.add_trace(go.Scatter(x=df['Date'], y=df['BBL' ], mode='lines', line={'width':1.50,'color':'#FFA500'}, name='BBL  –  Bollinger  Lower Band'), row=1, col=1)
-    # Volume Bars
+    # Volume Bars:
     marker_color=['#00FF00' if close > open else '#FFA500' for open , close  in zip(  df['Open'], df['Close'])]
     fig.add_trace(go.Bar(x=df['Date'], y=df['Volume'], name='Volume', marker_color=marker_color), row=2, col=1)
-    # LayOut UpDate
+    # LayOut UpDate:
     fig.update_layout(xaxis_rangeslider_visible=False, width=1250, height=750)
     st.plotly_chart(fig, key=key, width='stretch')
-# Generate Charts for Each Stock
+# Generating Charts for Each Stock:
 if not df1.empty:StockChart(df1, stock1, 'Chart1')
 if not df2.empty:StockChart(df2, stock2, 'Chart2')
+st.divider     (    )
+period='ME'
+def ReSample(data, period):
+    temp  =  data.set_index(pd.to_datetime(data['Date']))
+    sample=  temp['Close'].resample(f'{period}').last( )
+    sample=sample.pct_change( )
+    sample=sample.dropna    ( )
+    return sample
+def LongShort(longDF, shortDF, longTicker, shortTicker, period):
+    '''Generates & Displays Plotly Chart for Long-Short Comparisson.'''
+    st.markdown(f'🔘 Monthly Relative (**%**) Performance **{longTicker}×{shortTicker}**')
+    if longDF.empty or shortDF.empty:
+        st.warning('Cannot calculate relative performance: missing data.')
+        return
+    varLong =ReSample( longDF, period)
+    varShort=ReSample(shortDF, period)
+    varLong, varShort  =varLong.align(varShort, join='inner')
+    OutPerform=(varLong-varShort)*100
+    if OutPerform.empty:
+        st.info('Not enought overlaping chronological data points to compute relative performance.')
+        return
+    fig=go.Figure( )
+    fig.add_trace(go.Scatter(x=OutPerform.index, y=OutPerform.values, mode='lines+markers', name='Spread Performance',
+        line  =dict(color='#6595EE', width=1.5, dash='dash'),
+        marker=dict(size=8, color='#0065FF', line=dict(color='#0065FF', width=1))))
+    fig.add_hline(y=0, line_width=1, line_dash='dot', line_color='#C0C0C0')
+    st.plotly_chart(fig, key='LongShort', width='stretch')
+if not df1.empty and not df2.empty:LongShort(df1, df2, stock1, stock2, period)
 st.divider     (    )
